@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <!-- Meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Test di verifica infezione al SARS-CoV-2 (COVID-19)">
+  <meta name="keywords"
+    content="Covid-19, MLOps, SARS-CoV-2 Probability Checker, Covid-19 Probability Checker, SARS-CoV-2 Probability Infection Checker, Covid-19 Probability Infection Checker">
+  <meta name="author" content="Antonio Romano">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Self Test COVID-19</title>
+</head>
+
+<body>
+  <!--NavBar-->
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+    <div style="margin-top: 10px; margin-right: 15px;">
+      <a class="navbar-brand" href="#">
+        <img src="/static/logo.png" width="30" height="30" alt="">
+        <span style="margin-top: 10px; color: white; font-size: 20px ;"><b>Self Test COVID-19</b><br>
+          <p style="font-size: small; text-align: right;">Probability Infection Checker</p></a></span>
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/About">Come funziona il test</a>
+        </li>
+
+    </div>
+  </nav>
+
+  <!--Contenuto del body-->
+
+  <!--Titolo centrale e paragrafo testo-->
+  <div class="container">
+    <center><img src="/static/logo.png" alt="logo-self-test-covid19" width="200" height="auto"
+        style="margin-top: 15px; margin-bottom: -20px;"></center>
+    <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">Self Test COVID-19
+        </span></b><br>Probability <i>Infection</i> Checker</h2>
+    <center>
+      <h7> Se presenti dei sintomi e vuoi capire se sei potenzialmente positivo, fai il nostro <i
+          style="color: #006eff;">test</i>. Se il risultato del test è maggiore del 50% ti proporremo in automatico di
+        fare la prenotazione
+        del tampone rapido/molecolare alla <b style="color: #006eff;">farmacia</b> più vicina.</h7>
+    </center>
+    <center><a href="#test" class="btn btn-primary m-3" role="button">Vai al Self Test COVID-19</a></center>
+
+    <div class="d-flex justify-content-center">
+      <div class="card-deck">
+        <div class="card border-primary m-3" style="max-width: 18rem;">
+          <div class="card-body text-primary">
+            <h5 class="card-title">&#x1F9EA Svolgi il Test</h5>
+            <p class="card-text">Basta indicare si/no per ogni indicazione e calcola il risultato</p>
+          </div>
+        </div>
+        <div class="card border-danger m-3" style="max-width: 18rem;">
+          <div class="card-body text-danger">
+            <h5 class="card-title">&#x1F4DD Occhio al risultato</h5>
+            <p class="card-text">Sulla base del risultato il sistema ti consiglierà cosa fare
+            </p>
+          </div>
+        </div>
+        <div class="card border-success m-3" style="max-width: 18rem;">
+          <div class="card-body text-success">
+            <h5 class="card-title">&#x2695 Fai la prenotazione</h5>
+            <p class="card-text">Sulla base del risultato del test, prenota il tampone alla farmacia più vicina</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a name="test"></a>
+    <form action="/" method="POST">
+
+
+      <h3 style="margin-top: 10%; color: #006eff;">Sintomi</h3>
+      <p>Indica <b>"Yes"</b> se presenti i seguenti sintomi, malattie o informazioni utili per il calcolo della
+        possibile probabilità di infezione al virus SARS-CoV-2 (COVID-19). <br>
+      </p>
+      <hr>
+
+      <!--Form problema di respirazione-->
+      <div class="form-group">
+        <label for="Breathing Problem"><b>Breathing Problem</b><i> (Problema di respirazione)</i><br>Difficoltà
+          respiratorie, respiro affannoso, respiro pesante, sensazione di respiro incompleto</label>
+        <select class="custom-select " name="Breathing Problem" id="Breathing Problem">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form febbre-->
+      <div class="form-group">
+        <label for="Fever"><b>Fever</b><i> (Febbre)</i><br>Temperatura corporea > 37.5 °C (> 99.5 °F)</label>
+        <select class="custom-select" name="Fever" id="Fever">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form tosse secca-->
+      <div class="form-group">
+        <label for="Dry Cough"><b>Dry Cough</b><i> (Tosse secca)</i><br> Tosse secca, irritativa, persistente, non
+          accompagnata dalla presenza di secrezioni catarrali</label>
+        <select class="custom-select" name="Dry Cough" id="Dry Cough">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form mal di gola-->
+      <div class="form-group">
+        <label for="Sore throat"><b>Sore throat</b><i> (Mal di gola)</i><br> Dolore alla gola, difficoltà a
+          deglutire</label>
+        <select class="custom-select" name="Sore throat" id="Sore throat">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form naso che cola-->
+      <div class="form-group">
+        <label for="Running Nose"><b>Running Nose</b><i> (Naso che cola)</i><br> Perdita eccessiva di muco dal naso, o
+          dai seni paranasali, verso l'esterno o verso la gola</label>
+        <select class="custom-select" name="Running Nose" id="Running Nose">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form Asthma-->
+      <div class="form-group">
+        <label for="Asthma"><b>Asthma</b><i> (Asma)</i><br> Fiato corto dopo piccolo sforzo fisico, tosse frequente e
+          raschiamento della gola</label>
+        <select class="custom-select" name="Asthma" id="Asthma">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form mal di testa-->
+      <div class="form-group">
+        <label for="Headache"><b>Headache</b><i> (Mal di testa)</i><br> Dolore diffuso a tutto il cranio, sensazione di
+          costrizione e peso al vertice del cranio, pesantezza sul seno frontale</label>
+        <select class="custom-select" name="Headache" id="Headache">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form fatica-->
+      <div class="form-group">
+        <label for="Fatigue "><b>Fatigue</b><i> (Fatica)</i><br> Fatica, stress e spossatezza</label>
+        <select class="custom-select" name="Fatigue " id="Fatigue ">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form Gastrointestinale-->
+      <div class="form-group">
+        <label for="Gastrointestinal "><b>Gastrointestinal Problem</b><i> (Problemi Gastrointestinali)</i><br> Diarrea,
+          nausea, vomito, fastidi allo stomaco e all'intestino</label>
+        <select class="custom-select" name="Gastrointestinal " id="Gastrointestinal ">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <h3 style="margin-top: 5%; color: #006eff;">Malattie critiche per il COVID-19</h3>
+      <h7>Se presenti queste malattie, stai attento!</h7>
+      <hr>
+
+      <!--Form Malattia polmonare cronica -->
+      <div class="form-group">
+        <label for="Chronic Lung Disease"><b>Chronic Lung Disease</b><i> (Malattia polmonare cronica)</i><br> Patologia
+          dell'apparato respiratorio caratterizzata da un'ostruzione irreversibile di bronchi e polmoni</label>
+        <select class="custom-select" name="Chronic Lung Disease" id="Chronic Lung Disease">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form malattia cardiaca-->
+      <div class="form-group">
+        <label for="Heart Disease"><b>Heart Disease</b><i> (Malattia cardiaca)</i><br> Presenza di patologie del sistema
+          cardiovascolare</label>
+        <select class="custom-select" name="Heart Disease" id="Heart Disease">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form diabete-->
+      <div class="form-group">
+        <label for="Diabetes"><b>Diabetes</b><i> (Diabete)</i><br> Eccesso di zuccheri nel sangue (iperglicemia)</label>
+        <select class="custom-select" name="Diabetes" id="Diabetes">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form iper tensione-->
+      <div class="form-group">
+        <label for="Hyper Tension"><b>Hyper Tension</b><i> (Iper tensione)</i><br> Condizione caratterizzata
+          dall'elevata pressione del sangue nelle arterie</label>
+        <select class="custom-select" name="Hyper Tension" id="Hyper Tension">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <h3 style="margin-top: 5%; color: #006eff;">Informazioni utili per il COVID-19</h3>
+      <h7>Hai rispettato le regole imposte dallo stato?</h7>
+      <hr>
+
+      <!--Form viaggi all'estero-->
+      <div class="form-group">
+        <label for="Abroad travel"><b>Abroad travel</b><i> (Viaggi all'estero)</i><br> Viaggio all'estero, viaggio in
+          paesi con tasso di positività alto</label>
+        <select class="custom-select" name="Abroad travel" id="Abroad travel">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form Contatto con paziente COVID-->
+      <div class="form-group">
+        <label for="Contact with COVID Patient"><b>Contact with COVID Patient</b><i> (Contatto con un paziente
+            COVID)</i><br> Contatto con paziente risultato positivo a tampone molecolare o a test sierologico IgM RBD
+          anti-SARS-CoV-2</label>
+        <select class="custom-select" name="Contact with COVID Patient" id="Contact with COVID Patient">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Forma partecipazione a raduni, manifestazioni-->
+      <div class="form-group">
+        <label for="Attended Large Gathering"><b>Attended Large Gathering</b><i> (Partecipazione a grandi
+            raduni)</i><br> Partecipazione a raduni, manifestazioni, concerti, stadio</label>
+        <select class="custom-select" name="Attended Large Gathering" id="Attended Large Gathering">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form visite luoghi pubblici-->
+      <div class="form-group">
+        <label for="Visited Public Exposed Places"><b>Visited Public Exposed Places</b><i> (Luoghi pubblici esposti
+            visitati)</i><br> Visita a luoghi pubblici come treni pubblici, bus, tram, supermercati, scuole, università,
+          palestre, centro commerciali e simili</label>
+        <select class="custom-select" name="Visited Public Exposed Places" id="Visited Public Exposed Places">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form famiglia che lavora in luoghi pubblici esposti-->
+      <div class="form-group">
+        <label for="Family working in Public Exposed Places"><b>Family working in Public Exposed Places</b><i> (Famiglia
+            che lavora in luoghi pubblici esposti)</i><br> Famiglia che lavora in luoghi pubblici come scuole, palestre,
+          banche, poste, centrocommerciali, supermercati e simili</label>
+        <select class="custom-select" name="Family working in Public Exposed Places"
+          id="Family working in Public Exposed Places">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form Indossato la mascherina-->
+      <div class="form-group">
+        <label for="Wearing Masks"><b>Wearing Masks</b><i> (Indossare mascherine)</i><br> Indossato la mascherina nei
+          luoghi pubblici</label>
+        <select class="custom-select" name="Wearing Masks" id="Wearing Masks">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Form Sanitization from market-->
+      <div class="form-group">
+        <label for="Sanitization from Market"><b>Sanitization from Market</b><i> (Sanificazione del mercato)</i><br>
+          Sanificazione dei luoghi mercatali esposti</label>
+        <select class="custom-select" name="Sanitization from Market" id="Sanitization from Market">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <!--Button Submit-->
+      <p>&#9888; N.B Il sistema di calcolo è stato realizzato per soli scopi dimostrativi pertanto il risultato potrebbe
+        non essere attendibile. Inoltre i dati inseriti non verranno memorizzati.</p>
+      <button class="btn btn-primary"> Calcola la probabilità di infezione da COVID-19 </button>
+      <p> </p>
+    </form>
+
+
+
+  </div>
+
+  <!--Copyright-->
+  <!-- Footer -->
+  <footer class="text-lg text-lg-start bg-white text-muted">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4  text-primary">
+              <i class="fas fa-gem me-3"></i>Self Test COVID-19
+            </h6>
+            <p>
+              INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4  text-primary">
+              Products
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Angular</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">React</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Vue</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Laravel</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4  text-primary">
+              Accesso al sistema
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Farmacia</a>
+            </p>
+            <p>
+              <a href="./loginAdmin" class="text-reset">Admin</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
+            <p><i class="fas fa-home me-3"></i> Visita il nostro repository</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              info@example.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <hr>
+    <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
+      © 2022 Copyright:
+      <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  </nav>
+
+
+  <!--JavaScript-->
+  <!--jQuery, Popper.js, Bootstrap JS-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+click
+Flask
+gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
+matplotlib
+numpy
+pandas
+Pillow
+scikit-learn
+seaborn
+Werkzeug
+yellowbrick
+sqlite3
