@@ -34,20 +34,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboardFarmacia">Dashboard</a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Modifica prenotazioni<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/creaFarmacia">Crea Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ricercaFarmacia">Ricerca Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/modificaFarmacia">Modifica Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/rimozioneFarmacia">Rimuovi Farmacia</a>
+                    <a class="nav-link" href="/rimozionePrenotazioni">Rimuovi prenotazioni</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -61,35 +55,65 @@
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                Lista delle Farmacie disponibili </span></b></h2>
+                        Modifica informazioni sulle prenotazioni</span></b></h2>
+        </center>
+    </div>
 
-            <div class="d-flex justify-content-center mt-5">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome Farmacia</th>
-                            <th scope="col">Luogo</th>
-                            <th scope="col">CAP</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">PWD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for farmacia in farmacie %}
-                        <tr>
-                            <th scope="row">{{ farmacia.ID }}</th>
-                            <td>{{ farmacia.NomeFarmacia }}</td>
-                            <td>{{ farmacia.Citta }}</td>
-                            <td>{{ farmacia.CAP }}</td>
-                            <td>{{ farmacia.Email }}</td>
-                            <td>{{ farmacia.PWD }}</td>
-                        </tr>
-                    </tbody>
-                    {% endfor %}
-                </table>
-            </div>
-
+    <div class="container">
+        <div class="container-sm m-5">
+            {% for prenotazione in prenotazioni %}
+            <hr>
+            <form action="/{{ prenotazione.ID }}/aggiornaPrenotazioni" method="POST">
+                <div class="form-row">
+                    <div class="form-group mr-1">
+                        <label for="Nome">Nome</label>
+                        <input type="text" class="form-control" name="Nome" placeholder="Nome del prenotato"
+                            value="{{ prenotazione.Nome }}" required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="Cognome">Cognome</label>
+                        <input type="text" class="form-control" name="Cognome" placeholder="Cognome del prenotato"
+                            value="{{ prenotazione.Cognome }}" required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" name="Email" placeholder="Email del prenotato"
+                            value="{{ prenotazione.Email }}" required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="PWD">Password</label>
+                        <input type="password" class="form-control" name="PWD"
+                            placeholder="Password assegnato al prenotato" value="{{ prenotazione.PWD }}" required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="CodiceFiscale">Codice Fiscale</label>
+                        <input type="codicefiscale" class="form-control" name="CodiceFiscale"
+                            placeholder="Codice fiscale del prenotato" value="{{ prenotazione.CodiceFiscale }}"
+                            required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="Telefono">Telefono</label>
+                        <input type="telefono" class="form-control" name="Telefono" placeholder="Telefono del prenotato"
+                            value="{{ prenotazione.Telefono }}" required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="Giorno">Giorno</label>
+                        <input type="Giorno" class="form-control" name="Giorno"
+                            placeholder="Giorno scelto del prenotato" value="{{ prenotazione.Giorno }}" required>
+                    </div>
+                    <div class="form-group mr-1">
+                        <label for="Ora">Ora</label>
+                        <input type="Ora" class="form-control" name="Ora" placeholder="Ora scelta del prenotato"
+                            value="{{ prenotazione.Ora }}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <center>
+                    <button type="submit" class="btn btn-primary">Modifica</button>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
     </div>
 
     <!--Copyright-->
@@ -185,6 +209,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     </nav>
+
 
 
     <!--JavaScript-->

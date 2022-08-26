@@ -34,21 +34,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboardFarmacia">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/creazioneDisponibilitaTamponi">Creazione disponibilità tamponi</a>
+                  </li>
+                  <li class="nav-item">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Modifica disponibilità tamponi<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/creaFarmacia">Crea Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ricercaFarmacia">Ricerca Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/modificaFarmacia">Modifica Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/rimozioneFarmacia">Rimuovi Farmacia</a>
-                </li>
+                    <a class="nav-link" href="/rimuoviDisponibilitaTamponi">Rimuovi disponibilità tamponi</a>
+                  </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -61,35 +59,57 @@
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                Lista delle Farmacie disponibili </span></b></h2>
+                        Modifica disponibilità tamponi in Farmacia </span></b></h2>
+    </div>
 
+    <div class="container">    
             <div class="d-flex justify-content-center mt-5">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nome Farmacia</th>
-                            <th scope="col">Luogo</th>
-                            <th scope="col">CAP</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">PWD</th>
+                            <th scope="col">Nome tampone</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Numero pezzi</th>
+                            <th scope="col">Azione</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for farmacia in farmacie %}
+                        {% for tampone in tamponi %}
+                        <form action="/{{ tampone.ID_tamponi }}/modificaDisponibilitaTamponi" method="POST">
                         <tr>
-                            <th scope="row">{{ farmacia.ID }}</th>
-                            <td>{{ farmacia.NomeFarmacia }}</td>
-                            <td>{{ farmacia.Citta }}</td>
-                            <td>{{ farmacia.CAP }}</td>
-                            <td>{{ farmacia.Email }}</td>
-                            <td>{{ farmacia.PWD }}</td>
+                            <th scope="row">{{ tampone.ID_tamponi }}</th>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="NomeTampone" placeholder="Nome del tampone"
+                                        value="{{ tampone.NomeTampone }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <select class="custom-select" name="Tipo" id="Tipo">
+                                        <option value="Rapido">Rapido</option>
+                                        <option value="Molecolare">Molecolare</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="N_pezzi" placeholder="N_pezzi"
+                                        value="{{ tampone.N_pezzi }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Modifica</button>
+                                </div>
+                            </td>
                         </tr>
+                    </form>
                     </tbody>
                     {% endfor %}
                 </table>
             </div>
-
     </div>
 
     <!--Copyright-->
@@ -185,6 +205,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     </nav>
+
 
 
     <!--JavaScript-->

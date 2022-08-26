@@ -65,6 +65,7 @@ def covid_checker():
 def About():
     return render_template('About.html')
 
+# ----- DASHBOARD ADMIN ---------------------------
 @app.route('/loginAdmin', methods=["GET", "POST"])
 def loginAdmin():
     return render_template('loginAdmin.html')
@@ -145,6 +146,143 @@ def aggiornaFarmacia(ID):
         connection.close()
         return redirect('/dashboardAdmin')
     return redirect('/dashboardAdmin')
+
+
+
+# ------ DASHBOARD FARMACIA ------- 
+@app.route('/dashboardFarmacia', methods=["GET", "POST"])
+def dashFarmacia():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    prenotazioni = connection.execute('SELECT * FROM Prenotazioni').fetchall()
+    connection.close()
+    return render_template('dashboardFarmacia.html', prenotazioni=prenotazioni)
+
+@app.route('/modificaPrenotazioni', methods=["GET", "POST"])
+def modificaPrenotazioni():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    prenotazioni = connection.execute('SELECT * FROM Prenotazioni').fetchall()
+    connection.close()
+    return render_template('modificaPrenotazioni.html', prenotazioni=prenotazioni)
+
+@app.route('/<int:ID>/aggiornaPrenotazioni', methods=["POST"])
+def aggiornaPrenotazioni(ID):
+    if request.method == "POST":
+        Nome = request.form['Nome']
+        Cognome = request.form['Cognome']
+        Email = request.form['Email']
+        PWD = request.form['PWD']
+        CodiceFiscale = request.form['CodiceFiscale']
+        Telefono = request.form['Telefono']
+        Giorno = request.form['Giorno']
+        Ora = request.form['Ora']
+        #EsitoTampone = request.form['EsitoTampone']
+        connection = sqlite3.connect('selftestcovid19.db')
+        connection.row_factory = sqlite3.Row
+        prenotazioni = connection.execute('UPDATE Prenotazioni SET Nome = ?, Cognome = ?, Email = ?, PWD = ?, CodiceFiscale = ?, Telefono = ?, Giorno = ?, Ora = ? WHERE ID = ?', (Nome,Cognome,Email,PWD,CodiceFiscale,Telefono,Giorno,Ora,ID))
+        connection.commit()
+        connection.close()
+        return redirect('/dashboardFarmacia')
+    return redirect('/dashboardFarmacia')
+
+@app.route('/rimozionePrenotazioni', methods=["GET", "POST"])
+def rimozionePrenotazioni():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    prenotazioni = connection.execute('SELECT * FROM Prenotazioni').fetchall()
+    connection.close()
+    return render_template('rimozionePrenotazioni.html', prenotazioni=prenotazioni)
+
+@app.route('/<int:ID>/rimuoviPrenotazioni', methods=["POST"])
+def rimuoviPrenotazioni(ID):
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    prenotazioni = connection.execute('DELETE FROM Prenotazioni WHERE ID = ?', (ID,))
+    connection.commit()
+    connection.close()
+    return redirect('/dashboardFarmacia')
+
+@app.route('/creazioneDisponibilitaTamponi', methods=["GET", "POST"])
+def creaDisponibilitaTamponi():
+    if request.method == "POST":
+        NomeTampone = request.form['NomeTampone']
+        Tipo= request.form['Tipo']
+        N_pezzi = request.form['N_pezzi']
+        connection = sqlite3.connect('selftestcovid19.db')
+        connection.row_factory = sqlite3.Row
+        connection.execute('INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi) VALUES (?,?,?)', (NomeTampone,Tipo,N_pezzi))
+        connection.commit()
+        connection.close()
+        return redirect('/dashboardFarmacia')
+    return render_template('creazioneDisponibilitaTamponi.html')
+
+@app.route('/creazioneDisponibilitaTamponi', methods=["GET", "POST"])
+def visualizzaTamponi():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    tamponi = connection.execute('SELECT * FROM Tamponi').fetchall()
+    connection.close()
+    return render_template('creazioneDisponibilitaTamponi.html', tamponi=tamponi)
+
+@app.route('/rimuoviDisponibilitaTamponi', methods=["GET", "POST"])
+def rimozioneTamponi():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    tamponi = connection.execute('SELECT * FROM Tamponi').fetchall()
+    connection.close()
+    return render_template('rimozioneDisponibilitaTamponi.html', tamponi=tamponi)
+
+@app.route('/<int:ID_tamponi>/rimuoviDisponibilitaTamponi', methods=["POST"])
+def rimuoviTamponi(ID_tamponi):
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    prenotazioni = connection.execute('DELETE FROM Tamponi WHERE ID_tamponi = ?', (ID_tamponi,))
+    connection.commit()
+    connection.close()
+    return redirect('/dashboardFarmacia')
+
+@app.route('/modificaDisponibilitaTamponi', methods=["GET", "POST"])
+def modificaDisponibilitaTamponi():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    tamponi = connection.execute('SELECT * FROM Tamponi').fetchall()
+    connection.close()
+    return render_template('modificaDisponibilitaTamponi.html', tamponi=tamponi)
+
+@app.route('/<int:ID_tamponi>/modificaDisponibilitaTamponi', methods=["POST"])
+def aggiornaTamponi(ID_tamponi):
+    if request.method == "POST":
+        NomeTampone = request.form['NomeTampone']
+        Tipo = request.form['Tipo']
+        N_pezzi = request.form['N_pezzi']
+        connection = sqlite3.connect('selftestcovid19.db')
+        connection.row_factory = sqlite3.Row
+        prenotazioni = connection.execute('UPDATE Tamponi SET NomeTampone = ?, Tipo = ?, N_pezzi = ? WHERE ID_tamponi = ?', (NomeTampone,Tipo,N_pezzi,ID_tamponi))
+        connection.commit()
+        connection.close()
+        return redirect('/dashboardFarmacia')
+    return redirect('/dashboardFarmacia')
+
+@app.route('/creazioneEsitoTamponi', methods=["GET", "POST"])
+def creazioneEsitoTamponi():
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    prenotazioni = connection.execute('SELECT * FROM Prenotazioni').fetchall()
+    connection.close()
+    return render_template('creazioneEsitoTampone.html', prenotazioni=prenotazioni)
+
+@app.route('/<int:ID>/creazioneEsitoTamponi', methods=["POST"])
+def aggiornaEsitoTamponi(ID):
+    if request.method == "POST":
+        EsitoTampone = request.form['EsitoTampone']
+        connection = sqlite3.connect('selftestcovid19.db')
+        connection.row_factory = sqlite3.Row
+        prenotazioni = connection.execute('UPDATE Prenotazioni SET EsitoTampone = ? WHERE ID = ?', (EsitoTampone,ID))
+        connection.commit()
+        connection.close()
+        return redirect('/dashboardFarmacia')
+    return redirect('/dashboardFarmacia')
 
 # main
 if __name__=="__main__":
