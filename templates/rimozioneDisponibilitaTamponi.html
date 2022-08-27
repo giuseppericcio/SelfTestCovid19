@@ -71,6 +71,7 @@
             <th scope="col">Nome tampone </th>
             <th scope="col">Tipo</th>
             <th scope="col">Numero pezzi</th>
+            <th scope="col">Prezzo €</th>
             <th scope="col">Rimuovi</th>
           </tr>
         </thead>
@@ -81,6 +82,7 @@
             <td>{{ tampone.NomeTampone }}</td>
             <td>{{ tampone.Tipo }}</td>
             <td>{{ tampone.N_pezzi }}</td>
+            <td>{{ tampone.Prezzo }}</td>
             <td>
               <form action="{{ tampone.ID_tamponi }}/rimuoviDisponibilitaTamponi" method="POST">
                 <button type="submit" class="btn btn-danger btn-sm">Elimina</button>

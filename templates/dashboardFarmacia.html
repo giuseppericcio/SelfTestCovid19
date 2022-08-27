@@ -14,6 +14,7 @@
     <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Self Test COVID-19</title>
 </head>
@@ -35,15 +36,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Torna alla Home</a>
+                    <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Torna alla Home</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <h7 id="displayDateTime" class="nav-link text-white">Data</h2>
+                    <h7 id="displayDateTime" class="nav-link text-white"></h2>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">Logout</a>
@@ -55,13 +56,29 @@
 
 
     <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                Farmacia Nome Farmacia</span></b></h2>
+        &#x2695 Farmacia Nome Farmacia</span></b></h2>
     <div class="container">
         <center>
             <h7> Benvenuto nella <i style="color: #006eff;">Dashboard</i> della tua farmacia. Puoi effettuare le classiche operazioni CRUD per le prenotazioni, per i tamponi e 
                 per gli esiti dei tuoi pazienti.</h7>
         </center>
-    <center><a href="#listaprenotati" class="btn btn-primary m-3" role="button">Vai alla lista prenotati della giornata</a></center>
+    <center><a href="#listaprenotati" class="btn btn-primary m-3" role="button">	
+        &#9989 Vai alla lista prenotati della giornata</a></center>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                {% for totaleRap in totaleRapido %}
+                <h5 style="text-align: right;">Disponibilità tampone rapido <span class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
+                {% endfor %}
+            </div>
+            <div class="col-sm">
+                {% for totaleMol in totaleMolecolare %}
+                <h5>Disponibilità tampone molecolare <span class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
+                {% endfor %}
+            </div>
+          </div>
     </div>
 
     <div class="d-flex justify-content-center">
@@ -77,7 +94,7 @@
           <div class="card border-primary m-3" style="max-width: 18rem;">
             <div class="card-body text-primary">
               <span class="badge badge-pill badge-primary mb-3">Gestione prenotazioni</span>
-              <h5 class="card-title">&#739 Modifica prenotazioni</h5>
+              <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica prenotazioni</h5>
               <p class="card-text">Modifica prenotati per il tampone qualcosa qualcosa qualcosa qualcosa</p>
               <a href="/modificaPrenotazioni" class="card-link text-primary">&#8594 Accedi</a>
             </div>
@@ -85,7 +102,7 @@
           <div class="card border-primary m-3" style="max-width: 18rem;">
             <div class="card-body text-primary">
               <span class="badge badge-pill badge-primary mb-3">Gestione prenotazioni</span>
-              <h5 class="card-title">&#8722 Rimuovi prenotati</h5>
+              <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi prenotati</h5>
               <p class="card-text">Rimuovi prenotati per il tampone per qualcosa qualcosa qualcosa qualcosa</p>
               <a href="/rimozionePrenotazioni" class="card-link text-primary">&#8594 Accedi</a>
             </div>
@@ -105,7 +122,7 @@
           <div class="card border-success m-3" style="max-width: 18rem;">
             <div class="card-body text-success">
               <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
-              <h5 class="card-title">&#739 Modifica disponibilità tamponi</h5>
+              <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica disponibilità tamponi</h5>
               <p class="card-text">Modifica la disponibilità dei tamponi per l'aggiornamento della disponibilità in farmacia</p>
               <a href="/modificaDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
             </div>
@@ -113,7 +130,7 @@
           <div class="card border-success m-3" style="max-width: 18rem;">
             <div class="card-body text-success">
               <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
-              <h5 class="card-title">&#8722 Rimuovi disponibilità tamponi</h5>
+              <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi disponibilità tamponi</h5>
               <p class="card-text">Rimuovi la disponibilità dei tamponi per l'aggiornamento della disponibilità in farmacia</p>
               <a href="/rimuoviDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
             </div>
@@ -121,16 +138,13 @@
         </div>
       </div>
 
-      
-
-      
     <a name="listaprenotati"></a>
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                Lista delle Prenotazioni </span></b></h2>
+                <i class="fa fa-list" aria-hidden="true"></i> Lista delle Prenotazioni </span></b></h2>
 
-            <div class="d-flex justify-content-center mt-5">
+            <div class="d-flex justify-content-center mt-5 table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
@@ -273,7 +287,7 @@
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         var dateTime = date+' '+time; 
-        document.getElementById("displayDateTime").innerHTML = dateTime + ' <b>Day</b> ' + daylist[day];
+        document.getElementById("displayDateTime").innerHTML = dateTime + ' <i class="fa fa-calendar-o" aria-hidden="true"></i><b> Day</b> ' + daylist[day];
     </script>
     <!--jQuery, Popper.js, Bootstrap JS-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

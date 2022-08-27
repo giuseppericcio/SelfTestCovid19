@@ -27,13 +27,15 @@ CREATE TABLE `Tamponi` (
 	ID_tamponi INTEGER PRIMARY KEY AUTOINCREMENT,
 	NomeTampone VARCHAR(50),
 	Tipo VARCHAR(10),
-	N_pezzi INTEGER
+	N_pezzi INTEGER,
+	Prezzo FLOAT
 );
 
 UPDATE Prenotazioni SET EsitoTampone = 'Positivo' WHERE ID = 1;
 
-INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi) VALUES ('Tamporum', 'Rapido', 20);
-INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi) VALUES ('DazTamp', 'Molecolare', 20);
+
+INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi, Prezzo) VALUES ('Tamporum', 'Rapido', 20,15.0);
+INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi, Prezzo) VALUES ('DazTamp', 'Molecolare', 20,15.0);
 
 INSERT INTO Prenotazioni (Nome, Cognome, Email, PWD, CodiceFiscale, Telefono, Giorno, Ora) VALUES ('Gino', 'Pino', 'gino@gmail.com','prova','GNOPNOLX12HJ', '3333233212','26-08-2022','11:00');
 INSERT INTO Prenotazioni (Nome, Cognome, Email, PWD, CodiceFiscale, Telefono, Giorno, Ora) VALUES ('Ciccio', 'Verde', 'cicc@gmail.com','prova1','GMOVRELX13HJ', '3332355789','26-08-2022','11:15');
@@ -42,3 +44,5 @@ INSERT INTO Prenotazioni (Nome, Cognome, Email, PWD, CodiceFiscale, Telefono, Gi
 INSERT INTO Farmacie (NomeFarmacia, Citta, CAP, Email, PWD) VALUES ('Don Bosco','Napoli','80001','donbosco@farmacia.it','prova1');
 
 INSERT INTO Farmacie (NomeFarmacia, Citta, CAP, Email, PWD) VALUES ('Mastrelia','Napoli','80001','mastrelia@farmacia.it','prova2');
+
+SELECT SUM(Prezzo) AS TOT FROM Tamponi WHERE Tipo = 'Rapido';

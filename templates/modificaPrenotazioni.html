@@ -61,58 +61,79 @@
 
     <div class="container">
         <div class="container-sm m-5">
-            {% for prenotazione in prenotazioni %}
-            <hr>
-            <form action="/{{ prenotazione.ID }}/aggiornaPrenotazioni" method="POST">
-                <div class="form-row">
-                    <div class="form-group mr-1">
-                        <label for="Nome">Nome</label>
-                        <input type="text" class="form-control" name="Nome" placeholder="Nome del prenotato"
-                            value="{{ prenotazione.Nome }}" required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="Cognome">Cognome</label>
-                        <input type="text" class="form-control" name="Cognome" placeholder="Cognome del prenotato"
-                            value="{{ prenotazione.Cognome }}" required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="Email">Email</label>
-                        <input type="email" class="form-control" name="Email" placeholder="Email del prenotato"
-                            value="{{ prenotazione.Email }}" required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="PWD">Password</label>
-                        <input type="password" class="form-control" name="PWD"
-                            placeholder="Password assegnato al prenotato" value="{{ prenotazione.PWD }}" required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="CodiceFiscale">Codice Fiscale</label>
-                        <input type="codicefiscale" class="form-control" name="CodiceFiscale"
-                            placeholder="Codice fiscale del prenotato" value="{{ prenotazione.CodiceFiscale }}"
-                            required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="Telefono">Telefono</label>
-                        <input type="telefono" class="form-control" name="Telefono" placeholder="Telefono del prenotato"
-                            value="{{ prenotazione.Telefono }}" required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="Giorno">Giorno</label>
-                        <input type="Giorno" class="form-control" name="Giorno"
-                            placeholder="Giorno scelto del prenotato" value="{{ prenotazione.Giorno }}" required>
-                    </div>
-                    <div class="form-group mr-1">
-                        <label for="Ora">Ora</label>
-                        <input type="Ora" class="form-control" name="Ora" placeholder="Ora scelta del prenotato"
-                            value="{{ prenotazione.Ora }}" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <center>
-                    <button type="submit" class="btn btn-primary">Modifica</button>
-                </div>
-            </form>
-            {% endfor %}
+            <div class="d-flex justify-content-center mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome </th>
+                            <th scope="col">Cognome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Codice Fiscale</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Giorno</th>
+                            <th scope="col">Ora</th>
+                            <th scope="col">Azione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prenotazione in prenotazioni %}
+                        <form action="/{{ prenotazione.ID }}/aggiornaPrenotazioni" method="POST">
+                        <tr>
+                            <th scope="row">{{ prenotazione.ID }}</th>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input type="text" class="form-control" name="Nome" placeholder="Nome del prenotato"
+                                        value="{{ prenotazione.Nome }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input type="text" class="form-control" name="Cognome" placeholder="Cognome del prenotato"
+                                        value="{{ prenotazione.Cognome }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input type="email" class="form-control" name="Email" placeholder="Email del prenotato"
+                                        value="{{ prenotazione.Email }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input type="codicefiscale" class="form-control" name="CodiceFiscale"
+                                        placeholder="Codice fiscale del prenotato" value="{{ prenotazione.CodiceFiscale }}"
+                                        required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input type="telefono" class="form-control" name="Telefono" placeholder="Telefono del prenotato"
+                                        value="{{ prenotazione.Telefono }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input type="date" class="form-control" id="dateStandard" name="Giorno" placeholder="Giorno scelto del prenotato" value="{{ prenotazione.Giorno }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mr-1">
+                                    <input class="form-control" class="form-control" id="timeStandard" type="time" name="Ora" placeholder="Ora scelta del prenotato"
+                                    value="{{ prenotazione.Ora }}" required>
+                                  </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">&#9998</button>
+                                </div>
+                            </td>
+                        </tr>
+                        </form>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
 

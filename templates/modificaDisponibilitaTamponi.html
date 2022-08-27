@@ -14,6 +14,7 @@
     <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Self Test COVID-19</title>
 </head>
@@ -71,6 +72,7 @@
                             <th scope="col">Nome tampone</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Numero pezzi</th>
+                            <th scope="col">Prezzo €</th>
                             <th scope="col">Azione</th>
                         </tr>
                     </thead>
@@ -101,7 +103,13 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Modifica</button>
+                                    <input type="text" class="form-control" name="Prezzo" placeholder="Prezzo"
+                                        value="{{ tampone.Prezzo }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                 </div>
                             </td>
                         </tr>

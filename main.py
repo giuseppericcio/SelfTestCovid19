@@ -156,7 +156,12 @@ def dashFarmacia():
     connection.row_factory = sqlite3.Row
     prenotazioni = connection.execute('SELECT * FROM Prenotazioni').fetchall()
     connection.close()
-    return render_template('dashboardFarmacia.html', prenotazioni=prenotazioni)
+    connection = sqlite3.connect('selftestcovid19.db')
+    connection.row_factory = sqlite3.Row
+    totaleRapido = connection.execute('SELECT SUM(N_pezzi) as TOT FROM Tamponi WHERE tipo = ?',('Rapido',)).fetchall()
+    totaleMolecolare = connection.execute('SELECT SUM(N_pezzi) as TOT FROM Tamponi WHERE tipo = ?',('Molecolare',)).fetchall()
+    connection.close()
+    return render_template('dashboardFarmacia.html', prenotazioni=prenotazioni, totaleRapido=totaleRapido, totaleMolecolare=totaleMolecolare)
 
 @app.route('/modificaPrenotazioni', methods=["GET", "POST"])
 def modificaPrenotazioni():
@@ -172,7 +177,7 @@ def aggiornaPrenotazioni(ID):
         Nome = request.form['Nome']
         Cognome = request.form['Cognome']
         Email = request.form['Email']
-        PWD = request.form['PWD']
+        #PWD = request.form['PWD']
         CodiceFiscale = request.form['CodiceFiscale']
         Telefono = request.form['Telefono']
         Giorno = request.form['Giorno']
@@ -180,7 +185,7 @@ def aggiornaPrenotazioni(ID):
         #EsitoTampone = request.form['EsitoTampone']
         connection = sqlite3.connect('selftestcovid19.db')
         connection.row_factory = sqlite3.Row
-        prenotazioni = connection.execute('UPDATE Prenotazioni SET Nome = ?, Cognome = ?, Email = ?, PWD = ?, CodiceFiscale = ?, Telefono = ?, Giorno = ?, Ora = ? WHERE ID = ?', (Nome,Cognome,Email,PWD,CodiceFiscale,Telefono,Giorno,Ora,ID))
+        prenotazioni = connection.execute('UPDATE Prenotazioni SET Nome = ?, Cognome = ?, Email = ?, CodiceFiscale = ?, Telefono = ?, Giorno = ?, Ora = ? WHERE ID = ?', (Nome,Cognome,Email,CodiceFiscale,Telefono,Giorno,Ora,ID))
         connection.commit()
         connection.close()
         return redirect('/dashboardFarmacia')
@@ -205,25 +210,25 @@ def rimuoviPrenotazioni(ID):
 
 @app.route('/creazioneDisponibilitaTamponi', methods=["GET", "POST"])
 def creaDisponibilitaTamponi():
-    if request.method == "POST":
-        NomeTampone = request.form['NomeTampone']
-        Tipo= request.form['Tipo']
-        N_pezzi = request.form['N_pezzi']
-        connection = sqlite3.connect('selftestcovid19.db')
-        connection.row_factory = sqlite3.Row
-        connection.execute('INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi) VALUES (?,?,?)', (NomeTampone,Tipo,N_pezzi))
-        connection.commit()
-        connection.close()
-        return redirect('/dashboardFarmacia')
-    return render_template('creazioneDisponibilitaTamponi.html')
-
-@app.route('/creazioneDisponibilitaTamponi', methods=["GET", "POST"])
-def visualizzaTamponi():
     connection = sqlite3.connect('selftestcovid19.db')
     connection.row_factory = sqlite3.Row
     tamponi = connection.execute('SELECT * FROM Tamponi').fetchall()
     connection.close()
-    return render_template('creazioneDisponibilitaTamponi.html', tamponi=tamponi)
+    if request.method == "POST":
+        NomeTampone = request.form['NomeTampone']
+        Tipo= request.form['Tipo']
+        N_pezzi = request.form['N_pezzi']
+        Prezzo = request.form['Prezzo']
+        connection = sqlite3.connect('selftestcovid19.db')
+        connection.row_factory = sqlite3.Row
+        connection.execute('INSERT INTO Tamponi (NomeTampone, Tipo, N_pezzi, Prezzo) VALUES (?,?,?,?)', (NomeTampone,Tipo,N_pezzi,Prezzo))
+        connection.commit()
+        connection.close()
+        return redirect('/creazioneDisponibilitaTamponi')
+    return render_template('creazioneDisponibilitaTamponi.html',tamponi=tamponi)
+
+#@app.route('/creazioneDisponibilitaTamponi', methods=["GET", "POST"])
+
 
 @app.route('/rimuoviDisponibilitaTamponi', methods=["GET", "POST"])
 def rimozioneTamponi():
@@ -256,9 +261,10 @@ def aggiornaTamponi(ID_tamponi):
         NomeTampone = request.form['NomeTampone']
         Tipo = request.form['Tipo']
         N_pezzi = request.form['N_pezzi']
+        Prezzo = request.form['Prezzo']
         connection = sqlite3.connect('selftestcovid19.db')
         connection.row_factory = sqlite3.Row
-        prenotazioni = connection.execute('UPDATE Tamponi SET NomeTampone = ?, Tipo = ?, N_pezzi = ? WHERE ID_tamponi = ?', (NomeTampone,Tipo,N_pezzi,ID_tamponi))
+        prenotazioni = connection.execute('UPDATE Tamponi SET NomeTampone = ?, Tipo = ?, N_pezzi = ?, Prezzo = ? WHERE ID_tamponi = ?', (NomeTampone,Tipo,N_pezzi,Prezzo,ID_tamponi))
         connection.commit()
         connection.close()
         return redirect('/dashboardFarmacia')

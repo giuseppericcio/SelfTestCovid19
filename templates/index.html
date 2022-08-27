@@ -14,6 +14,7 @@
   <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
 
   <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <title>Self Test COVID-19</title>
 </head>
@@ -36,10 +37,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#"><i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/About">Come funziona il test</a>
+          <a class="nav-link" href="/About"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il test</a>
         </li>
 
     </div>
@@ -59,7 +60,7 @@
         fare la prenotazione
         del tampone rapido/molecolare alla <b style="color: #006eff;">farmacia</b> più vicina.</h7>
     </center>
-    <center><a href="#test" class="btn btn-primary m-3" role="button">Vai al Self Test COVID-19</a></center>
+    <center><a href="#test" class="btn btn-primary m-3" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Vai al Self Test COVID-19</a></center>
 
     <div class="d-flex justify-content-center">
       <div class="card-deck">
@@ -89,7 +90,8 @@
     <form action="/" method="POST">
 
 
-      <h3 style="margin-top: 10%; color: #006eff;">Sintomi</h3>
+      <h3 style="margin-top: 10%; color: #006eff;">	
+        &#129440 Sintomi</h3>
       <p>Indica <b>"Yes"</b> se presenti i seguenti sintomi, malattie o informazioni utili per il calcolo della
         possibile probabilità di infezione al virus SARS-CoV-2 (COVID-19). <br>
       </p>
@@ -183,7 +185,7 @@
         </select>
       </div>
 
-      <h3 style="margin-top: 5%; color: #006eff;">Malattie critiche per il COVID-19</h3>
+      <h3 style="margin-top: 5%; color: #006eff;">&#129319 Malattie critiche per il COVID-19</h3>
       <h7>Se presenti queste malattie, stai attento!</h7>
       <hr>
 
@@ -226,7 +228,7 @@
         </select>
       </div>
 
-      <h3 style="margin-top: 5%; color: #006eff;">Informazioni utili per il COVID-19</h3>
+      <h3 style="margin-top: 5%; color: #006eff;">&#128567 Informazioni utili per il COVID-19</h3>
       <h7>Hai rispettato le regole imposte dallo stato?</h7>
       <hr>
 
@@ -307,7 +309,7 @@
       <!--Button Submit-->
       <p>&#9888; N.B Il sistema di calcolo è stato realizzato per soli scopi dimostrativi pertanto il risultato potrebbe
         non essere attendibile. Inoltre i dati inseriti non verranno memorizzati.</p>
-      <button class="btn btn-primary"> Calcola la probabilità di infezione da COVID-19 </button>
+      <button class="btn btn-primary"><i class="fa fa-calculator" aria-hidden="true"></i> Calcola la probabilità di infezione da COVID-19 </button>
       <p> </p>
     </form>
 
