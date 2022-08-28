@@ -150,6 +150,10 @@ def aggiornaFarmacia(ID):
 
 
 # ------ DASHBOARD FARMACIA ------- 
+@app.route('/loginFarmacia', methods=["GET", "POST"])
+def loginFarmacia():
+    return render_template('loginFarmacia.html')
+
 @app.route('/dashboardFarmacia', methods=["GET", "POST"])
 def dashFarmacia():
     connection = sqlite3.connect('selftestcovid19.db')
