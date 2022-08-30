@@ -33,20 +33,115 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                    <a class="nav-link" href="/dashboardFarmacia">Dashboard</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il test <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Modifica prenotazioni<span class="sr-only">(current)</span></a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="/rimozionePrenotazioni">Rimuovi prenotazioni</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
+    <div class="container">
+        <center>
+            <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
+                        Modifica informazioni sulle prenotazioni</span></b></h2>
+        </center>
+    </div>
 
+    <div class="container">
+        <div class="container-sm m-5">
+            <div class="d-flex justify-content-center mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome </th>
+                            <th scope="col">Cognome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Codice Fiscale</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Giorno</th>
+                            <th scope="col">Ora</th>
+                            <th scope="col">Azione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prenotazione in prenotazioni %}
+                        <form action="/{{ prenotazione.ID }}/aggiornaPrenotazioni" method="POST">
+                            <tr>
+                                <th scope="row">{{ prenotazione.ID }}</th>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="text" class="form-control" name="Nome"
+                                            placeholder="Nome del prenotato" value="{{ prenotazione.Nome }}" required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="text" class="form-control" name="Cognome"
+                                            placeholder="Cognome del prenotato" value="{{ prenotazione.Cognome }}"
+                                            required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="email" class="form-control" name="Email"
+                                            placeholder="Email del prenotato" value="{{ prenotazione.Email }}" required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="codicefiscale" class="form-control" name="CodiceFiscale"
+                                            placeholder="Codice fiscale del prenotato"
+                                            value="{{ prenotazione.CodiceFiscale }}" required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="telefono" class="form-control" name="Telefono"
+                                            placeholder="Telefono del prenotato" value="{{ prenotazione.Telefono }}"
+                                            required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="date" class="form-control" id="dateStandard" name="Giorno"
+                                            placeholder="Giorno scelto del prenotato" value="{{ prenotazione.Giorno }}"
+                                            required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group mr-1">
+                                        <input type="time" class="form-control" id="timeStandard" name="Ora"
+                                            placeholder="Ora scelta del prenotato" value="{{ prenotazione.Ora }}"
+                                            required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">&#9998</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </form>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 
     <!--Copyright-->
     <!-- Footer -->
@@ -129,6 +224,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     </nav>
+
 
 
     <!--JavaScript-->

@@ -36,7 +36,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard <span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Torna alla Home</a>
@@ -44,10 +45,11 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <h7 id="displayDateTime" class="nav-link text-white"></h2>
+                    <h7 id="displayDateTime" class="nav-link text-white">
+                        </h2>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Logout</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -56,93 +58,104 @@
 
 
     <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-        &#x2695 Farmacia Nome Farmacia</span></b></h2>
+                &#x2695 Farmacia {{ nomefarmacia }}</span></b></h2>
     <div class="container">
         <center>
-            <h7> Benvenuto nella <i style="color: #006eff;">Dashboard</i> della tua farmacia. Puoi effettuare le classiche operazioni CRUD per le prenotazioni, per i tamponi e 
+            <h7> Benvenuto nella <i style="color: #006eff;">Dashboard</i> della tua farmacia. Puoi effettuare le
+                classiche operazioni CRUD per le prenotazioni, per i tamponi e
                 per gli esiti dei tuoi pazienti.</h7>
         </center>
-    <center><a href="#listaprenotati" class="btn btn-primary m-3" role="button">	
-        &#9989 Vai alla lista prenotati della giornata</a></center>
+        <div class="d-flex justify-content-center">
+            <center><a href="#listaprenotati" class="btn btn-primary m-3" role="button">
+                &#9989 Vai alla lista prenotati della giornata</a></center>
+            <center><a href="/checkQRCode" class="btn btn-primary m-3" role="button">
+                <i class="fa fa-qrcode" aria-hidden="true"></i> Check QR Code</a></center>
+        </div>
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col-sm">
                 {% for totaleRap in totaleRapido %}
-                <h5 style="text-align: right;">Disponibilità tampone rapido <span class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
-                {% endfor %}
+                <h5 style="text-align: right;">Disponibilità tampone rapido <span
+                        class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
+                    {% endfor %}
             </div>
             <div class="col-sm">
                 {% for totaleMol in totaleMolecolare %}
-                <h5>Disponibilità tampone molecolare <span class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
-                {% endfor %}
+                <h5>Disponibilità tampone molecolare <span
+                        class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
+                    {% endfor %}
             </div>
-          </div>
+        </div>
     </div>
 
     <div class="d-flex justify-content-center">
         <div class="card-deck">
-          <div class="card border-danger m-3" style="max-width: 18rem;">
-            <div class="card-body text-danger">
-              <span class="badge badge-pill badge-danger mb-3">Gestione esito tamponi</span>
-              <h5 class="card-title">&#10010 Creazione esito tampone</h5>
-              <p class="card-text">Creazione esito tamponi rapidi e/o molecolari ai pazienti prenotati </p>
-              <a href="/creazioneEsitoTamponi" class="card-link text-danger">&#8594 Accedi</a>
+            <div class="card border-danger m-3" style="max-width: 18rem;">
+                <div class="card-body text-danger">
+                    <span class="badge badge-pill badge-danger mb-3">Gestione esito tamponi</span>
+                    <h5 class="card-title">&#10010 Creazione esito tampone</h5>
+                    <p class="card-text">Creazione esito tamponi rapidi e/o molecolari ai pazienti prenotati </p>
+                    <a href="/creazioneEsitoTamponi" class="card-link text-danger">&#8594 Accedi</a>
+                </div>
             </div>
-          </div>
-          <div class="card border-primary m-3" style="max-width: 18rem;">
-            <div class="card-body text-primary">
-              <span class="badge badge-pill badge-primary mb-3">Gestione prenotazioni</span>
-              <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica prenotazioni</h5>
-              <p class="card-text">Modifica prenotati per il tampone qualcosa qualcosa qualcosa qualcosa</p>
-              <a href="/modificaPrenotazioni" class="card-link text-primary">&#8594 Accedi</a>
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione prenotazioni</span>
+                    <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica prenotazioni</h5>
+                    <p class="card-text">Modifica prenotati per il tampone qualcosa qualcosa qualcosa qualcosa</p>
+                    <a href="/modificaPrenotazioni" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
             </div>
-          </div>
-          <div class="card border-primary m-3" style="max-width: 18rem;">
-            <div class="card-body text-primary">
-              <span class="badge badge-pill badge-primary mb-3">Gestione prenotazioni</span>
-              <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi prenotati</h5>
-              <p class="card-text">Rimuovi prenotati per il tampone per qualcosa qualcosa qualcosa qualcosa</p>
-              <a href="/rimozionePrenotazioni" class="card-link text-primary">&#8594 Accedi</a>
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione prenotazioni</span>
+                    <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi prenotati</h5>
+                    <p class="card-text">Rimuovi prenotati per il tampone per qualcosa qualcosa qualcosa qualcosa</p>
+                    <a href="/rimozionePrenotazioni" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
             </div>
-          </div>
         </div>
     </div>
     <div class="d-flex justify-content-center">
         <div class="card-deck">
-          <div class="card border-success m-3" style="max-width: 18rem;">
-            <div class="card-body text-success">
-              <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
-              <h5 class="card-title">&#10010 Creazione disponibilità tamponi</h5>
-              <p class="card-text">Creazione disponibilità tamponi rapidi e/o molecolari presenti in farmacia </p>
-              <a href="/creazioneDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
+            <div class="card border-success m-3" style="max-width: 18rem;">
+                <div class="card-body text-success">
+                    <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
+                    <h5 class="card-title">&#10010 Creazione disponibilità tamponi</h5>
+                    <p class="card-text">Creazione disponibilità tamponi rapidi e/o molecolari presenti in farmacia </p>
+                    <a href="/creazioneDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
+                </div>
             </div>
-          </div>
-          <div class="card border-success m-3" style="max-width: 18rem;">
-            <div class="card-body text-success">
-              <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
-              <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica disponibilità tamponi</h5>
-              <p class="card-text">Modifica la disponibilità dei tamponi per l'aggiornamento della disponibilità in farmacia</p>
-              <a href="/modificaDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
+            <div class="card border-success m-3" style="max-width: 18rem;">
+                <div class="card-body text-success">
+                    <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
+                    <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica disponibilità
+                        tamponi</h5>
+                    <p class="card-text">Modifica la disponibilità dei tamponi per l'aggiornamento della disponibilità
+                        in farmacia</p>
+                    <a href="/modificaDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
+                </div>
             </div>
-          </div>
-          <div class="card border-success m-3" style="max-width: 18rem;">
-            <div class="card-body text-success">
-              <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
-              <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi disponibilità tamponi</h5>
-              <p class="card-text">Rimuovi la disponibilità dei tamponi per l'aggiornamento della disponibilità in farmacia</p>
-              <a href="/rimuoviDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
+            <div class="card border-success m-3" style="max-width: 18rem;">
+                <div class="card-body text-success">
+                    <span class="badge badge-pill badge-success mb-3">Gestione disponibilità tamponi</span>
+                    <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi disponibilità tamponi
+                    </h5>
+                    <p class="card-text">Rimuovi la disponibilità dei tamponi per l'aggiornamento della disponibilità in
+                        farmacia</p>
+                    <a href="/rimuoviDisponibilitaTamponi" class="card-link text-success">&#8594 Accedi</a>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <a name="listaprenotati"></a>
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                <i class="fa fa-list" aria-hidden="true"></i> Lista delle Prenotazioni </span></b></h2>
+                        <i class="fa fa-list" aria-hidden="true"></i> Lista delle Prenotazioni </span></b></h2>
 
             <div class="d-flex justify-content-center mt-5 table-responsive">
                 <table class="table">
@@ -152,7 +165,6 @@
                             <th scope="col">Nome </th>
                             <th scope="col">Cognome</th>
                             <th scope="col">Email</th>
-                            <th scope="col">PWD</th>
                             <th scope="col">Codice Fiscale</th>
                             <th scope="col">Telefono</th>
                             <th scope="col">Giorno</th>
@@ -167,7 +179,6 @@
                             <td>{{ prenotazione.Nome }}</td>
                             <td>{{ prenotazione.Cognome }}</td>
                             <td>{{ prenotazione.Email }}</td>
-                            <td>{{ prenotazione.PWD }}</td>
                             <td>{{ prenotazione.CodiceFiscale }}</td>
                             <td>{{ prenotazione.Telefono }}</td>
                             <td>{{ prenotazione.Giorno }}</td>
@@ -209,19 +220,13 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4  text-primary">
-                            Products
+                            Prodotti
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset">Angular</a>
+                            <a href="#!" class="text-reset">Tampone rapido</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">React</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Vue</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Laravel</a>
+                            <a href="#!" class="text-reset">Tampone molecolare</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -233,7 +238,7 @@
                             Accesso al sistema
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset">Farmacia</a>
+                            <a href="/loginFarmacia" class="text-reset">Farmacia</a>
                         </p>
                         <p>
                             <a href="/loginAdmin" class="text-reset">Admin</a>
@@ -245,13 +250,7 @@
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-                        <p><i class="fas fa-home me-3"></i> Visita il nostro repository</p>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            info@example.com
-                        </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        <p><i class="fa fa-github"></i> Visita il nostro repository</p>
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -274,7 +273,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     </nav>
 
-        
+
 
 
 
@@ -283,10 +282,10 @@
     <script type="text/javascript">
         var today = new Date();
         var day = today.getDay();
-        var daylist = ["Sunday","Monday","Tuesday","Wednesday ","Thursday","Friday","Saturday"];
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var dateTime = date+' '+time; 
+        var dateTime = date + ' ' + time;
         document.getElementById("displayDateTime").innerHTML = dateTime + ' <i class="fa fa-calendar-o" aria-hidden="true"></i><b> Day</b> ' + daylist[day];
     </script>
     <!--jQuery, Popper.js, Bootstrap JS-->

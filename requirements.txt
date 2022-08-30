@@ -13,3 +13,4 @@ seaborn
 Werkzeug
 yellowbrick
 sqlite3
+qrcode

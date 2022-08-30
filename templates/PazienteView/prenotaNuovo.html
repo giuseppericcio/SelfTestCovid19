@@ -35,22 +35,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboardFarmacia">Dashboard</a>
-        </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Creazione esito tamponi<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home <span
+                    class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/modificaEsitoTamponi">Modifica esito tamponi</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/rimuoviEsitoTamponi">Rimuovi esito tamponi</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+            <a class="nav-link" href="/About"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il
+                test</a>
         </li>
       </ul>
     </div>
@@ -59,63 +50,59 @@
   <div class="container">
     <center>
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-            Aggiungi esito tampone al prenotato</span></b></h2></center>
-      <div class="container">
-              <center>
-                  <h7> Aggiungi esito tampone del prenotato, premi il pulsante <i class="fa fa-check" aria-hidden="true"></i> per confermare l'esito</h7>
-              </center>
-      </div>
-  
-      <div class="d-flex justify-content-center mt-5">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nome </th>
-              <th scope="col">Cognome</th>
-              <th scope="col">Email</th>
-              <th scope="col">Codice Fiscale</th>
-              <th scope="col">Telefono</th>
-              <th scope="col">Giorno</th>
-              <th scope="col">Ora</th>
-              <th scope="col">Esito</th>
-              <th scope="col">Azione</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for prenotazione in prenotazioni %}
-            <form action="/{{ prenotazione.ID }}/creazioneEsitoTamponi" method="POST">
-              <tr>
-                <th scope="row">{{ prenotazione.ID }}</th>
-                <td>{{ prenotazione.Nome }}</td>
-                <td>{{ prenotazione.Cognome }}</td>
-                <td>{{ prenotazione.Email }}</td>
-                <td>{{ prenotazione.CodiceFiscale }}</td>
-                <td>{{ prenotazione.Telefono }}</td>
-                <td>{{ prenotazione.Giorno }}</td>
-                <td>{{ prenotazione.Ora }}</td>
-                <td>
-                  <div class="form-group">
-                    <select class="custom-select" name="EsitoTampone" id="EsitoTampone">
-                      <option value="Da effettuare">Da effettuare</option>
-                      <option value="Negativo">Negativo</option>
-                      <option value="Positivo">Positivo</option>
-                    </select>
-                </div>
-                </td>
-                <td>
-                  <div class="form-group text-center m">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i></button>
-                  </div>
-                </td>
-              </tr>
-            </form>
-          </tbody>
-          {% endfor %}
-        </table>
-      </div>
+            Inserisci le informazioni per la prenotazione </span></b></h2>
+  </div>
 
-</div>
+  <div class="container">
+    <form action="/{{ ID_farmacia }}/{{ ID_tampone }}/{{ Giorno }}/confermaPrenotaNuovo" method="POST">
+        <div class="form-group">
+            <label for="Giorno">Giorno</label>
+          <input type="date" class="form-control" name="Giorno" placeholder="Giorno"
+            value="{{ Giorno }}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="Ora">Ora</label>
+            <select type="time" class="form-control" name="Ora" placeholder="Ora" required>
+                <option value="" hidden> Seleziona un orario </option>
+                {% for Ora in Orari %}
+                <option value="{{ Ora.Orario }}">{{ Ora.Orario }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="Nome">Nome</label>
+          <input type="text" class="form-control" name="Nome" placeholder="Nome del paziente"
+            value="{{ request.form['Nome'] }}" required>
+        </div>
+        <div class="form-group">
+          <label for="Cognome">Cognome</label>
+          <input type="text" class="form-control" name="Cognome" placeholder="Cognome del paziente"
+            value="{{ request.form['Cognome'] }}" required>
+        </div>
+        <div class="form-group">
+          <label for="Email">Email</label>
+          <input type="email" class="form-control" name="Email" placeholder="Email del paziente" value="{{ request.form['Email'] }}" required>
+        </div>
+        <div class="form-group">
+          <label for="PWD">Password</label>
+          <input type="password" class="form-control" name="PWD" placeholder="Password"
+            value="{{ request.form['PWD'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="CodiceFiscale">Codice Fiscale</label>
+            <input type="text" class="form-control" name="CodiceFiscale" placeholder="Codice Fiscale del paziente"
+              value="{{ request.form['CodiceFiscale'] }}" required>
+          </div>
+        <div class="form-group">
+          <label for="Telefono">Telefono</label>
+          <input type="text" class="form-control" name="Telefono" placeholder="Numero di Telefono del paziente"
+            value="{{ request.form['Telefono'] }}" required>
+        </div>
+        <div class="form-group text-center mt-3">
+          <button type="submit" class="btn btn-success">Prenota tampone rapido</button>
+        </div>
+      </form>
+  </div>
 
   <!--Copyright-->
   <!-- Footer -->
@@ -146,19 +133,13 @@
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              Products
+              Prodotti
             </h6>
             <p>
-              <a href="#!" class="text-reset">Angular</a>
+              <a href="#!" class="text-reset">Tampone rapido</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">React</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Vue</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Laravel</a>
+              <a href="#!" class="text-reset">Tampone molecolare</a>
             </p>
           </div>
           <!-- Grid column -->
@@ -170,7 +151,7 @@
               Accesso al sistema
             </h6>
             <p>
-              <a href="#!" class="text-reset">Farmacia</a>
+              <a href="/loginFarmacia" class="text-reset">Farmacia</a>
             </p>
             <p>
               <a href="/loginAdmin" class="text-reset">Admin</a>
@@ -182,13 +163,7 @@
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-            <p><i class="fas fa-home me-3"></i> Visita il nostro repository</p>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              info@example.com
-            </p>
-            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+            <p><i class="fa fa-github"></i> Visita il nostro repository</p>
           </div>
           <!-- Grid column -->
         </div>

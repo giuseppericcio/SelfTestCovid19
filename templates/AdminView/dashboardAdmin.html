@@ -14,6 +14,7 @@
     <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Self Test COVID-19</title>
 </head>
@@ -34,107 +35,111 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboardFarmacia">Dashboard</a>
-                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Modifica prenotazioni<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard <span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/rimozionePrenotazioni">Rimuovi prenotazioni</a>
+                    <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Torna alla Home</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Logout</a>
+                    <h7 id="displayDateTime" class="nav-link text-white">
+                        </h2>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
 
+    <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
+                &#x2699 Dashboard Admin </span></b></h2>
+    <div class="container">
+        <center>
+            <h7> Benvenuto nella <i style="color: #006eff;">Dashboard</i> dell'Admin. Puoi effettuare le classiche
+                operazioni CRUD per la gestione delle farmacie.</h7>
+        </center>
+        <center><a href="#listafarmacie" class="btn btn-primary m-3" role="button">
+                &#9989 Vai alla lista delle farmacie disponibili</a></center>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="card-deck">
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione farmacie</span>
+                    <h5 class="card-title">&#10010 Creazione Farmacia</h5>
+                    <p class="card-text">Creazione delle farmacie che aderiscono alla piattaforma. </p>
+                    <a href="/creaFarmacia" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
+            </div>
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione farmacie</span>
+                    <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica Farmacia</h5>
+                    <p class="card-text">Modifica le informazioni relative ad una farmacie presente nel sistema.</p>
+                    <a href="/modificaFarmacia" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
+            </div>
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione farmacie</span>
+                    <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi Farmacia</h5>
+                    <p class="card-text">Rimuovi una farmacia dal sistema.</p>
+                    <a href="/rimozioneFarmacia" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card-deck">
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione farmacie</span>
+                    <h5 class="card-title"><i class="fa fa-search" aria-hidden="true"></i> Ricerca Farmacia</h5>
+                    <p class="card-text">Ricerca le farmacie presenti nel sistema per Nome e Città (e/o CAP).</p>
+                    <a href="/ricercaFarmacia" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a name="listafarmacie"></a>
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                        Modifica informazioni sulle prenotazioni</span></b></h2>
-        </center>
-    </div>
+                        <i class="fa fa-list" aria-hidden="true"></i> Lista delle Farmacie disponibili </span></b></h2>
 
-    <div class="container">
-        <div class="container-sm m-5">
-            <div class="d-flex justify-content-center mt-5">
+            <div class="d-flex justify-content-center mt-5 table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nome </th>
-                            <th scope="col">Cognome</th>
+                            <th scope="col">Nome Farmacia</th>
+                            <th scope="col">Città</th>
+                            <th scope="col">CAP</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Codice Fiscale</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Giorno</th>
-                            <th scope="col">Ora</th>
-                            <th scope="col">Azione</th>
+                            <th scope="col">PWD</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for prenotazione in prenotazioni %}
-                        <form action="/{{ prenotazione.ID }}/aggiornaPrenotazioni" method="POST">
+                        {% for farmacia in farmacie %}
                         <tr>
-                            <th scope="row">{{ prenotazione.ID }}</th>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input type="text" class="form-control" name="Nome" placeholder="Nome del prenotato"
-                                        value="{{ prenotazione.Nome }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input type="text" class="form-control" name="Cognome" placeholder="Cognome del prenotato"
-                                        value="{{ prenotazione.Cognome }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input type="email" class="form-control" name="Email" placeholder="Email del prenotato"
-                                        value="{{ prenotazione.Email }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input type="codicefiscale" class="form-control" name="CodiceFiscale"
-                                        placeholder="Codice fiscale del prenotato" value="{{ prenotazione.CodiceFiscale }}"
-                                        required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input type="telefono" class="form-control" name="Telefono" placeholder="Telefono del prenotato"
-                                        value="{{ prenotazione.Telefono }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input type="date" class="form-control" id="dateStandard" name="Giorno" placeholder="Giorno scelto del prenotato" value="{{ prenotazione.Giorno }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group mr-1">
-                                    <input class="form-control" class="form-control" id="timeStandard" type="time" name="Ora" placeholder="Ora scelta del prenotato"
-                                    value="{{ prenotazione.Ora }}" required>
-                                  </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">&#9998</button>
-                                </div>
-                            </td>
+                            <th scope="row">{{ farmacia.ID }}</th>
+                            <td>{{ farmacia.NomeFarmacia }}</td>
+                            <td>{{ farmacia.Citta }}</td>
+                            <td>{{ farmacia.CAP }}</td>
+                            <td>{{ farmacia.Email }}</td>
+                            <td>{{ farmacia.PWD }}</td>
                         </tr>
-                        </form>
                     </tbody>
                     {% endfor %}
                 </table>
             </div>
-        </div>
+
     </div>
 
     <!--Copyright-->
@@ -166,19 +171,13 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4  text-primary">
-                            Products
+                            Prodotti
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset">Angular</a>
+                            <a href="#!" class="text-reset">Tampone rapido</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">React</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Vue</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Laravel</a>
+                            <a href="#!" class="text-reset">Tampone molecolare</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -190,7 +189,7 @@
                             Accesso al sistema
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset">Farmacia</a>
+                            <a href="/loginFarmacia" class="text-reset">Farmacia</a>
                         </p>
                         <p>
                             <a href="/loginAdmin" class="text-reset">Admin</a>
@@ -202,13 +201,7 @@
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-                        <p><i class="fas fa-home me-3"></i> Visita il nostro repository</p>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            info@example.com
-                        </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        <p><i class="fa fa-github"></i> Visita il nostro repository</p>
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -232,8 +225,17 @@
     </nav>
 
 
-
     <!--JavaScript-->
+    <!--Script ORA e DATA-->
+    <script type="text/javascript">
+        var today = new Date();
+        var day = today.getDay();
+        var daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        document.getElementById("displayDateTime").innerHTML = dateTime + ' <i class="fa fa-calendar-o" aria-hidden="true"></i><b> Day</b> ' + daylist[day];
+    </script>
     <!--jQuery, Popper.js, Bootstrap JS-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

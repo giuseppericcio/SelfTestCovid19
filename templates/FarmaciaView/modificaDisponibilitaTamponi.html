@@ -40,18 +40,19 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/creazioneDisponibilitaTamponi">Creazione disponibilità tamponi</a>
-                  </li>
-                  <li class="nav-item">
+                </li>
+                <li class="nav-item">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Modifica disponibilità tamponi<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Modifica disponibilità tamponi<span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/rimuoviDisponibilitaTamponi">Rimuovi disponibilità tamponi</a>
-                  </li>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Logout</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -63,33 +64,37 @@
                         Modifica disponibilità tamponi in Farmacia </span></b></h2>
     </div>
 
-    <div class="container">    
-            <div class="d-flex justify-content-center mt-5">
-                <table class="table">
-                    <thead>
+    <div class="container">
+        <div class="d-flex justify-content-center mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome tampone</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Numero pezzi</th>
+                        <th scope="col">Giorno</th>
+                        <th scope="col">Ora Inizio</th>
+                        <th scope="col">Ora Fine</th>
+                        <th scope="col">Prezzo €</th>
+                        <th scope="col">Azione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tampone in tamponi %}
+                    <form action="/{{ tampone.ID }}/modificaDisponibilitaTamponi" method="POST">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome tampone</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Numero pezzi</th>
-                            <th scope="col">Prezzo €</th>
-                            <th scope="col">Azione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for tampone in tamponi %}
-                        <form action="/{{ tampone.ID_tamponi }}/modificaDisponibilitaTamponi" method="POST">
-                        <tr>
-                            <th scope="row">{{ tampone.ID_tamponi }}</th>
+                            <th scope="row">{{ tampone.ID }}</th>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="NomeTampone" placeholder="Nome del tampone"
-                                        value="{{ tampone.NomeTampone }}" required>
+                                    <input type="text" class="form-control" name="NomeTampone"
+                                        placeholder="Nome del tampone" value="{{ tampone.NomeTampone }}" required>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group">
                                     <select class="custom-select" name="Tipo" id="Tipo">
+                                        <option value="{{ tampone.Tipo }}" selected hidden>{{ tampone.Tipo }}</option>
                                         <option value="Rapido">Rapido</option>
                                         <option value="Molecolare">Molecolare</option>
                                     </select>
@@ -103,21 +108,40 @@
                             </td>
                             <td>
                                 <div class="form-group">
+                                    <input type="date" class="form-control" name="Giorno" placeholder="Giorno"
+                                        value="{{ tampone.Giorno }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="time" class="form-control" name="OraInizio" placeholder="Fascia oraria"
+                                        value="{{ tampone.OraInizio }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="time" class="form-control" name="OraFine" placeholder="Fascia oraria"
+                                        value="{{ tampone.OraFine }}" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
                                     <input type="text" class="form-control" name="Prezzo" placeholder="Prezzo"
                                         value="{{ tampone.Prezzo }}" required>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-square-o"
+                                            aria-hidden="true"></i></button>
                                 </div>
                             </td>
                         </tr>
                     </form>
-                    </tbody>
-                    {% endfor %}
-                </table>
-            </div>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 
     <!--Copyright-->
@@ -149,19 +173,13 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4  text-primary">
-                            Products
+                            Prodotti
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset">Angular</a>
+                            <a href="#!" class="text-reset">Tampone rapido</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">React</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Vue</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Laravel</a>
+                            <a href="#!" class="text-reset">Tampone molecolare</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -173,7 +191,7 @@
                             Accesso al sistema
                         </h6>
                         <p>
-                            <a href="#!" class="text-reset">Farmacia</a>
+                            <a href="/loginFarmacia" class="text-reset">Farmacia</a>
                         </p>
                         <p>
                             <a href="/loginAdmin" class="text-reset">Admin</a>
@@ -185,13 +203,7 @@
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-                        <p><i class="fas fa-home me-3"></i> Visita il nostro repository</p>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            info@example.com
-                        </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        <p><i class="fa fa-github"></i> Visita il nostro repository</p>
                     </div>
                     <!-- Grid column -->
                 </div>

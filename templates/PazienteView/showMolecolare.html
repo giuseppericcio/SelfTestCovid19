@@ -2,7 +2,7 @@
 <html lang="it">
 
 <head>
-  <!-- Meta tags -->
+  <!--Meta tags-->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Test di verifica infezione al SARS-CoV-2 (COVID-19)">
@@ -13,13 +13,15 @@
   <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
   <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
 
-  <!-- Bootstrap CSS -->
+  <!--Bootstrap CSS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <title>Self Test COVID-19</title>
+  <title>Self Test COVID-19 - Result</title>
 </head>
 
 <body>
-  <!--NavBar-->
+
+  <!--Contentuo-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div style="margin-top: 10px; margin-right: 15px;">
       <a class="navbar-brand" href="#">
@@ -32,93 +34,46 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboardFarmacia">Dashboard</a>
-        </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Creazione disponibilità tamponi<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home <span
+              class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/modificaDisponibilitaTamponi">Modifica disponibilità tamponi</a>
+          <a class="nav-link" href="/About"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il test</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/rimuoviDisponibilitaTamponi">Rimuovi disponibilità tamponi</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
-        </li>
-      </ul>
     </div>
   </nav>
 
+  <!--Risultato-->
   <div class="container">
-    <center>
-      <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-            Creazione disponibilità tamponi</span></b></h2>
-  </div>
-
-  <div class="container">
-    <form method="POST">
-      <div class="form-group">
-        <label for="NomeTampone">Nome Tampone</label>
-        <input type="text" class="form-control" name="NomeTampone" placeholder="Nome/Marca del tampone"
-          value="{{ request.form['NomeTampone'] }}" required>
-      </div>
-      <div class="form-group">
-        <label for="Tipo">Tipo tampone</label>
-        <select class="custom-select" name="Tipo" id="Tipo">
-          <option value="Rapido">Rapido</option>
-          <option value="Molecolare">Molecolare</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="N_pezzi">Numero pezzi</label>
-        <input type="text" class="form-control" name="N_pezzi" placeholder="N_pezzi" value="{{ request.form['N_pezzi'] }}" required>
-      </div>
-      <div class="form-group">
-        <label for="Prezzo">Prezzo €</label>
-        <input type="text" class="form-control" name="Prezzo" placeholder="Prezzo" value="{{ request.form['Prezzo'] }}" required>
-      </div>
-      <div class="form-group text-center mt-3">
-        <button type="submit" class="btn btn-primary">Inserisci tamponi</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="container">
-    <center>
-        <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-            Lista tamponi disponibili in farmacia </span></b></h2>
-
-        <div class="d-flex justify-content-center mt-5">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome tampone</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Numero pezzi</th>
-                        <th scope="col">Prezzo €</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for tampone in tamponi %}
-                    <tr>
-                        <th scope="row">{{ tampone.ID_tamponi }}</th>
-                        <td>{{ tampone.NomeTampone }}</td>
-                        <td>{{ tampone.Tipo }}</td>
-                        <td>{{ tampone.N_pezzi }}</td>
-                        <td>{{ tampone.Prezzo }}</td>
-                    </tr>
-                </tbody>
-                {% endfor %}
-            </table>
-        </div>
+    <h3 style="margin-top: 5%; color: #006eff;">Il risultato</h3>
+    <hr>
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Attenzione!</h4>
+      <p> La probabilità di infezione del paziente è <b>{{inf}}%</b>. {{text}}</p>
+      <hr>
+      <p class="mb-0"><b>Attenzione</b> recati in farmacia senza frequentare luoghi affollati in quanto potenzialmente
+        positivo!</p>
     </div>
+    <p> &#9742 <b>Numero Verde Regionale: </b><a
+        href="https://www.salute.gov.it/portale/nuovocoronavirus/dettaglioContenutiNuovoCoronavirus.jsp?lingua=italiano&id=5364&area=nuovoCoronavirus&menu=vuoto">Clicca
+        qui per l'elenco</a>
+      <br> &#9742 <b>Numero Pubblica Utilità: </b>1500
+      <br> &#128279 <b>Link utile: </b><a
+        href="https://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&id=257">Tutte
+        le informazioni a come comportarsi in caso di sintomi</a>
+    </p>
+    <a href="/disponibilitaMolecolare">
+      <center><button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Prenota un tampone molecolare</button>
+      </center>
+    </a>
+
+
+  </div>
+  </div>
 
   <!--Copyright-->
   <!-- Footer -->
@@ -149,19 +104,13 @@
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              Products
+              Prodotti
             </h6>
             <p>
-              <a href="#!" class="text-reset">Angular</a>
+              <a href="#!" class="text-reset">Tampone rapido</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">React</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Vue</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Laravel</a>
+              <a href="#!" class="text-reset">Tampone molecolare</a>
             </p>
           </div>
           <!-- Grid column -->
@@ -173,7 +122,7 @@
               Accesso al sistema
             </h6>
             <p>
-              <a href="#!" class="text-reset">Farmacia</a>
+              <a href="/loginFarmacia" class="text-reset">Farmacia</a>
             </p>
             <p>
               <a href="/loginAdmin" class="text-reset">Admin</a>
@@ -185,13 +134,7 @@
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-            <p><i class="fas fa-home me-3"></i> Visita il nostro repository</p>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              info@example.com
-            </p>
-            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+            <p><i class="fa fa-github"></i> Visita il nostro repository</p>
           </div>
           <!-- Grid column -->
         </div>
