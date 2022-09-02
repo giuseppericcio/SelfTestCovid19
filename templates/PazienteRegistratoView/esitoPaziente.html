@@ -35,25 +35,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboardAdmin"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/creaFarmacia"><i class="fa fa-plus" aria-hidden="true"></i> Crea Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ricercaFarmacia"><i class="fa fa-search" aria-hidden="true"></i>  Ricerca Farmacia</a>
-                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica Farmacia<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Il mio profilo <span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/rimozioneFarmacia"><i class="fa fa-trash" aria-hidden="true"></i>  Rimuovi Farmacia</a>
+                    <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Torna alla Home</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
+                    <h7 id="displayDateTime" class="nav-link text-white">
+                    </h2>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -62,74 +58,80 @@
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                        Modifica informazioni di una Farmacia </span></b></h2>
+                        Benvenuto <i class="fa fa-user-o" aria-hidden="true"></i> {{ nomePaziente }}, gestisci le prenotazioni</span></b></h2>
+            <h7>Puoi gestire le tue prenotazioni effettuate, accedi nelle aree sottostanti per effettuare le modifiche.</h7> 
+            <center><a href="#referti" class="btn btn-primary m-3" role="button">
+                <i class="fa fa-check" aria-hidden="true"></i> Vai al referto</a></center>          
     </div>
 
-    <div class="container">
-        <div class="container-sm m-5">
-            <div class="d-flex justify-content-center mt-5">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">NomeFarmacia </th>
-                            <th scope="col">Città</th>
-                            <th scope="col">CAP</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">PWD</th>
-                            <th scope="col">Azione</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for farmacia in farmacie %}
-                        <form action="/{{ farmacia.ID }}/aggiornaFarmacia" method="POST">
-                            <tr>
-                                <th scope="row">{{ farmacia.ID }}</th>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="NomeFarmacia"
-                                            placeholder="Nome della farmacia" value="{{ farmacia.NomeFarmacia }}"
-                                            required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="Citta" placeholder="Città"
-                                            value="{{ farmacia.Citta }}" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="CAP" placeholder="CAP"
-                                            value="{{ farmacia.CAP }}" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="email" class="form-control" name="Email" placeholder="Email"
-                                            value="{{ farmacia.Email }}" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="PWD" placeholder="Password"
-                                            value="{{ farmacia.PWD }}" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-square-o"
-                                            aria-hidden="true"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </form>
-                    </tbody>
-                    {% endfor %}
-                </table>
+    <div class="d-flex justify-content-center">
+        <div class="card-deck">
+            <div class="card border-primary m-3" style="max-width: 18rem;">
+                <div class="card-body text-primary">
+                    <span class="badge badge-pill badge-primary mb-3">Gestione prenotazione</span>
+                    <h5 class="card-title"><i class="fa fa-pencil" aria-hidden="true"></i> Modifica prenotazione</h5>
+                    <p class="card-text">Modifica le informazioni relative alla tua prenotazione</p>
+                    <a href="/modificaPrenotazionePaziente" class="card-link text-primary">&#8594 Accedi</a>
+                </div>
+            </div>
+            <div class="card border-danger m-3" style="max-width: 18rem;">
+                <div class="card-body text-danger">
+                    <span class="badge badge-pill badge-danger mb-3">Gestione prenotazione</span>
+                    <h5 class="card-title"><i class="fa fa-times" aria-hidden="true"></i> Rimuovi prenotazione</h5>
+                    <p class="card-text">Rimuovi la prenotazione da te effettuata</p>
+                    <a href="/rimozionePrenotazionePaziente" class="card-link text-danger">&#8594 Accedi</a>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <center>
+            <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
+                        Referto tamponi</span></b></h2>
+                        <h7>Visualizza gli esiti dei tamponi effettuati nelle farmacie scelte.</h7>
+    </div>
+
+    <a name="referti"></a>
+    <div class="container my-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID Prenotazione</th>
+                    <th scope="col">Nome Farmacia</th>
+                    <th scope="col">Giorno</th>
+                    <th scope="col">Ora</th>
+                    <th scope="col">Esito</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for esiti in esito %}
+                <tr>
+                    <th scope="row">{{ esiti.ID }}</th>
+                    <td>{{ esiti.NomeFarmacia }}</td>
+                    <td>{{ esiti.Giorno }}</td>
+                    <td>{{ esiti.Ora }}</td>
+                    <td>
+                        {% if esiti.EsitoTampone == "Negativo" %}
+                        {% block content %}
+                        <span class="badge bg-success text-white" style="font-size: 16px;">Negativo</span>
+                        {% endblock content %}
+                        {% elif esiti.EsitoTampone == "Positivo" %}
+                        <span class="badge bg-danger text-white" style="font-size: 16px;">Positivo </span>
+                        {% elif esiti.EsitoTampone == "Da effettuare" %}
+                        <span class="badge bg-secondary text-white" style="font-size: 16px;">Da effettuare</span>
+                        {% elif esiti.EsitoTampone == "In analisi" %}
+                        <span class="badge bg-primary text-white" style="font-size: 16px;">In Analisi</span>
+                        {% endif %}
+                        
+
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
 
     <!--Copyright-->
     <!-- Footer -->
@@ -214,8 +216,16 @@
     </nav>
 
 
-
     <!--JavaScript-->
+    <script type="text/javascript">
+        var today = new Date();
+        var day = today.getDay();
+        var daylist = ["Domenica", "Lunedi", "Martedì", "Mercoledì ", "Giovedì", "Venerdì", "Sabato"];
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        document.getElementById("displayDateTime").innerHTML = dateTime + ' <i class="fa fa-calendar-o" aria-hidden="true"></i><b> Day</b> ' + daylist[day];
+    </script>
     <!--jQuery, Popper.js, Bootstrap JS-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

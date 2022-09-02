@@ -7,6 +7,10 @@ from tracemalloc import start
 from flask import Flask, render_template, redirect, request, session
 import sqlite3
 import pickle
+import smtplib, ssl, qrcode, os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 from datetime import time
 from datetime import timedelta
 
@@ -23,6 +27,58 @@ def connectDB():
     connection = sqlite3.connect('selftestcovid19.db')
     connection.row_factory = sqlite3.Row
     return connection
+
+def sendmail(id, receiver_mail,info_prenotazione):
+        port = 465
+        smtp_server = "authsmtp.securemail.pro"
+        sender_email = "no-reply@selftestcovid19.it"
+        password = "ProgettoSAD"
+
+        msg = MIMEMultipart()
+        msg['From'] = 'Prenotazione SelfTestCOVID19 <' + sender_email + '>'
+        msg['To'] = receiver_mail 
+        msg['Subject'] = 'PRENOTAZIONE EFFETTUATA CON SUCCESSO - SELFTESTCOVID19'
+
+        html1 = """\
+        <html>
+        <head></head>
+        <body>
+            <h2 style="color: #4485b8;"><strong><span style="color: #008000;">Prenotazione avvenuta con successo</span></strong></h2>
+        </body>
+        </html>
+        """
+
+        html2 = """\
+        <html>
+        <head></head>
+        <body>
+            <p><strong>Accedi</strong> con le credenziali inserite durante la prenotazione all'area <a href="mioprofilo">&amp;#8962 Il Mio Profilo</a> per <strong>modificare</strong> o <strong>rimuovere</strong> la prenotazione</p>
+            <p><em>Non rispondere a questo messaggio</em></p>
+        </body>
+        </html>
+        """
+        
+        head_msg = MIMEText(html1, 'html')
+        messaggio = MIMEText(info_prenotazione)
+        footer_msg = MIMEText(html2, 'html')
+        msg.attach(head_msg)
+        msg.attach(messaggio)
+        msg.attach(footer_msg)
+
+        filename = "qr-code-selftestcovid19.png"
+        img = qrcode.make(id)
+        img.save(filename)
+        with open('qr-code-selftestcovid19.png', 'rb') as fp:
+            img = MIMEImage(fp.read())
+            img.add_header('Content-Disposition', 'attachment', filename="qr-code-selftestcovid19.png")
+            msg.attach(img)
+        os.remove("qr-code-selftestcovid19.png")
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_mail, msg.as_string())
+
 
 def splittime(ora_inizio,ora_fine):
     x = ora_inizio.split(':')
@@ -106,6 +162,17 @@ def covid_checker():
 def About():
     return render_template('about.html')
 
+@app.route('/scopri', methods=["GET", "POST"])
+def scopri():
+    return render_template('scopri.html')
+
+@app.route('/listaFarmacie', methods=["GET", "POST"])
+def listaFarmacie():
+        connection = connectDB()
+        farmacie = connection.execute('SELECT ID, NomeFarmacia, Citta, Cap, Email FROM Farmacie').fetchall()
+        connection.close()
+        return render_template('/listafarmacie.html', farmacie=farmacie)
+
 @app.route('/disponibilitaRapido', methods=["GET", "POST"])
 def dispRapido():
     if request.method == "POST":
@@ -135,14 +202,19 @@ def confermaPrenotaNuovo(ID_farmacia,ID_tampone,Giorno):
         PWD = request.form['PWD']
         CodiceFiscale = request.form['CodiceFiscale']
         Telefono = request.form['Telefono']
-
+      
         connection = connectDB()
         connection.execute('INSERT INTO Pazienti (Nome, Cognome, Email, PWD, CodiceFiscale, Telefono) VALUES (?,?,?,?,?,?)', (Nome,Cognome,Email,PWD,CodiceFiscale,Telefono,))
-        connection.execute('INSERT INTO Prenotazioni (Nome, Cognome, Email, CodiceFiscale, Telefono, Giorno, Ora, ID_Farmacia) VALUES (?,?,?,?,?,?,?,?)', (Nome,Cognome,Email,CodiceFiscale,Telefono,Giorno,Ora,ID_farmacia,))
+        connection.execute('INSERT INTO Prenotazioni (Nome, Cognome, Email, CodiceFiscale, Telefono, Giorno, Ora, EsitoTampone, ID_Farmacia ) VALUES (?,?,?,?,?,?,?,?,?)', (Nome,Cognome,Email,CodiceFiscale,Telefono,Giorno,Ora,'Da effettuare',ID_farmacia,))
         connection.execute('UPDATE Tamponi SET N_pezzi = N_pezzi - 1 WHERE ID = ?', (ID_tampone,))
         connection.execute('DELETE FROM Orari WHERE ID_Tampone = ? AND Giorno = ? AND Orario = ?', (ID_tampone,Giorno,Ora,))
+        ID_Prenotazione = connection.execute('SELECT ID FROM Prenotazioni ORDER BY ID DESC LIMIT 1').fetchone()
+        NomeFarmacia = connection.execute('SELECT NomeFarmacia FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.ID = ?',(ID_Prenotazione['ID'],)).fetchone()
+        Citta = connection.execute('SELECT Citta FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.ID = ?',(ID_Prenotazione['ID'],)).fetchone()
         connection.commit()
         connection.close()
+        info_prenotazione = "Gentile " + Nome + " " + Cognome + ",\nLe confermiamo che la prenotazione è avvenuta con successo. \nLa prenotazione è il giorno " + Giorno + " alle ore " + Ora + " alla Farmacia " + NomeFarmacia['NomeFarmacia'] + " - " + Citta['Citta'] +"\nLe alleghiamo il QR Code da mostrare in farmacia. \n\nCordiali Saluti, \nSelfTestCOVID19"
+        sendmail(ID_Prenotazione['ID'], Email, info_prenotazione)
         return render_template('/PazienteView/riepilogoPrenotazione.html',Nome=Nome,Cognome=Cognome,Email=Email,CodiceFiscale=CodiceFiscale,Telefono=Telefono,Giorno=Giorno,Ora=Ora)
 
 @app.route('/<int:ID_farmacia>/<int:ID_tampone>/<string:Giorno>/prenotaRegistrato', methods=["GET","POST"])
@@ -168,11 +240,16 @@ def confermaPrenotaRegistrato(ID_farmacia,ID_tampone,Giorno):
         account = connection.execute('SELECT * FROM Pazienti WHERE Email = ? AND PWD = ?', (Email, PWD,)).fetchone()
 
         if account:
-            connection.execute('INSERT INTO Prenotazioni (Nome, Cognome, Email, CodiceFiscale, Telefono, Giorno, Ora, ID_Farmacia) VALUES (?,?,?,?,?,?,?,?)', (account['Nome'],account['Cognome'],account['Email'],account['CodiceFiscale'],account['Telefono'],Giorno,Ora,ID_farmacia,))
+            connection.execute('INSERT INTO Prenotazioni (Nome, Cognome, Email, CodiceFiscale, Telefono, Giorno, Ora, EsitoTampone, ID_Farmacia ) VALUES (?,?,?,?,?,?,?,?,?)', (account['Nome'],account['Cognome'],account['Email'],account['CodiceFiscale'],account['Telefono'],Giorno,Ora,'Da effettuare',ID_farmacia,))
             connection.execute('UPDATE Tamponi SET N_pezzi = N_pezzi - 1 WHERE ID = ?', (ID_tampone,))
             connection.execute('DELETE FROM Orari WHERE ID_Tampone = ? AND Giorno = ? AND Orario = ?', (ID_tampone,Giorno,Ora,))
+            ID_Prenotazione = connection.execute('SELECT ID FROM Prenotazioni ORDER BY ID DESC LIMIT 1').fetchone()
+            NomeFarmacia = connection.execute('SELECT Nome, Cognome, NomeFarmacia FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.ID = ?',(ID_Prenotazione['ID'],)).fetchone()
+            Citta = connection.execute('SELECT Citta FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.ID = ?',(ID_Prenotazione['ID'],)).fetchone()
             connection.commit()
             connection.close()
+            info_prenotazione = "Gentile " + NomeFarmacia['Nome'] + " " + NomeFarmacia['Cognome'] + ",\nLe confermiamo che la prenotazione è avvenuta con successo. \nLa prenotazione è il giorno " + Giorno + " alle ore " + Ora + " alla Farmacia " + NomeFarmacia['NomeFarmacia'] + " - " + Citta['Citta'] +"\nLe alleghiamo il QR Code da mostrare in farmacia. \n\nCordiali Saluti, \nSelfTestCOVID19"
+            sendmail(ID_Prenotazione['ID'], Email, info_prenotazione)
             return render_template('/PazienteView/riepilogoPrenotazione.html',Nome=account['Nome'],Cognome=account['Cognome'],Email=account['Email'],CodiceFiscale=account['CodiceFiscale'],Telefono=account['Telefono'],Giorno=Giorno,Ora=Ora)
         else:
             msg = 'Credenziali inserite non valide!'
@@ -190,6 +267,77 @@ def dispMolecolare():
         return render_template('/PazienteView/prenota.html', tamponi_disponibili=tamponi_disponibili)
     return render_template('/PazienteView/disponibilitaMolecolare.html')
 
+
+# ----- PAZIENTE REGISTRATO -----------------------
+@app.route('/loginPaziente', methods=["GET", "POST"])
+def loginPaziente():
+    msg = ""
+    if request.method == 'POST':
+        Email = request.form['Email']
+        PWD = request.form['PWD']
+        connection = connectDB()
+        account = connection.execute('SELECT * FROM Pazienti WHERE Email = ? AND PWD = ?', (Email, PWD,)).fetchone()
+
+        if account:
+            session['loggedin'] = True
+            session['id'] = account['ID']
+            session['username'] = account['Email']
+            connection = connectDB()
+            esito = connection.execute('SELECT Prenotazioni.ID, nomefarmacia, giorno, ora, esitotampone FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.Email=?',(session['username'],)).fetchall()
+            connection.close()
+            return render_template('/PazienteRegistratoView/esitoPaziente.html', nomePaziente=account['Nome'], esito=esito)
+        else:
+            msg = 'Credenziali inserite non valide!'
+    
+    return render_template('/PazienteRegistratoView/loginPaziente.html',msg=msg)
+
+@app.route('/modificaPrenotazionePaziente', methods=["GET", "POST"])
+def modificaPrenotazionePaziente():
+    if 'loggedin' in session: 
+        connection = connectDB()
+        prenotazionePrenotato = connection.execute('SELECT Prenotazioni.ID, NomeFarmacia, Giorno, Ora, EsitoTampone FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.Email= ?',(session['username'],)).fetchall()
+        connection.close()
+    else:
+        return redirect('/loginPaziente')
+    return render_template('/PazienteRegistratoView/modificaPrenotazionepaziente.html',prenotazionePrenotato=prenotazionePrenotato)
+
+@app.route('/<int:ID>/aggiornaPrenotazionePaziente', methods=["POST"])
+def aggiornaPrenotazionePaziente(ID):
+    if 'loggedin' in session:
+        if request.method == "POST":
+            NomeFarmacia = request.form['NomeFarmacia']
+            Giorno = request.form['Giorno']
+            Ora = request.form['Ora']
+            #EsitoTampone = request.form['EsitoTampone']
+            connection = connectDB()
+            farmacie = connection.execute('UPDATE Prenotazioni SET NomeFarmacia = ?, Giorno = ?, Ora = ? WHERE ID = ?', (NomeFarmacia,Giorno,Ora,ID))
+            connection.commit()
+            connection.close()
+            return redirect('/modificaPrenotazionePaziente')
+    else:
+        return redirect('/loginPaziente')
+    return redirect('/modificaPrenotazionePaziente')
+
+@app.route('/rimozionePrenotazionePaziente', methods=["GET", "POST"])
+def rimozionePrenotazionePaziente():
+    if 'loggedin' in session:
+        connection = connectDB()
+        prenotazionePrenotato = connection.execute('SELECT Prenotazioni.ID, NomeFarmacia, Giorno, Ora FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.Email= ?',(session['username'],)).fetchall()
+        connection.close()
+    else:
+        return redirect('/loginPaziente')
+    return render_template('/PazienteRegistratoView/rimozionePrenotazionePaziente.html',prenotazionePrenotato=prenotazionePrenotato)
+
+@app.route('/<int:ID>/rimuoviPrenotazionePaziente', methods=["POST"])
+def rimuoviPrenotazionePaziente(ID):
+    if 'loggedin' in session:
+        connection = connectDB()
+        farmacie = connection.execute('DELETE FROM Prenotazioni WHERE ID = ?', (ID,))
+        connection.commit()
+        connection.close()
+    else:
+        return redirect('/loginPaziente')
+    return redirect('/rimozionePrenotazionePaziente')
 
 # ----- DASHBOARD ADMIN ---------------------------
 @app.route('/loginAdmin', methods=["GET", "POST"])
@@ -244,7 +392,7 @@ def creaFarmacia():
             connection.execute('INSERT INTO Farmacie (NomeFarmacia, Citta, CAP, Email, PWD) VALUES (?,?,?,?,?)', (NomeFarmacia,Citta,CAP,Email,PWD))
             connection.commit()
             connection.close()
-            return redirect('/dashboardAdmin')
+            return redirect('/creaFarmacia')
     else:
         return redirect('/loginAdmin')
     return render_template('/AdminView/creaFarmacia.html')
@@ -293,7 +441,7 @@ def rimuoviFarmacia(ID):
         connection.close()
     else:
         return redirect('/loginAdmin')
-    return redirect('/dashboardAdmin')
+    return redirect('/rimozioneFarmacia')
 
 @app.route('/<int:ID>/aggiornaFarmacia', methods=["POST"])
 def aggiornaFarmacia(ID):
@@ -308,10 +456,10 @@ def aggiornaFarmacia(ID):
             farmacie = connection.execute('UPDATE Farmacie SET NomeFarmacia = ?, Citta = ?, CAP = ?, Email = ?, PWD = ? WHERE ID = ?', (NomeFarmacia,Citta,CAP,Email,PWD,ID))
             connection.commit()
             connection.close()
-            return redirect('/dashboardAdmin')
+            return redirect('/modificaFarmacia')
     else:
         return redirect('/loginAdmin')
-    return redirect('/dashboardAdmin')
+    return redirect('/modificaFarmacia')
 
 
 # ------ DASHBOARD FARMACIA ------- 
@@ -343,7 +491,7 @@ def loginFarmacia():
 def dashFarmacia():
     if 'loggedin' in session:
         connection = connectDB()
-        prenotazioni = connection.execute('SELECT * FROM Prenotazioni WHERE ID_Farmacia = ?',(session['id'],)).fetchall()
+        prenotazioni = connection.execute('SELECT * FROM Prenotazioni WHERE ID_Farmacia = ? AND Prenotazioni.Giorno >= DATE()',(session['id'],)).fetchall()
         nomefarmacia = connection.execute('SELECT (NomeFarmacia) FROM Farmacie WHERE ID = ?',(session['id'],)).fetchone()
         totaleRapido = connection.execute('SELECT SUM(N_pezzi) as TOT FROM Tamponi WHERE tipo = ? AND ID_Farmacia = ?',('Rapido',session['id'],)).fetchall()
         totaleMolecolare = connection.execute('SELECT SUM(N_pezzi) as TOT FROM Tamponi WHERE tipo = ? AND ID_Farmacia = ?',('Molecolare',session['id'],)).fetchall()
@@ -382,10 +530,10 @@ def aggiornaPrenotazioni(ID):
             prenotazioni = connection.execute('UPDATE Prenotazioni SET Nome = ?, Cognome = ?, Email = ?, CodiceFiscale = ?, Telefono = ?, Giorno = ?, Ora = ? WHERE ID = ?', (Nome,Cognome,Email,CodiceFiscale,Telefono,Giorno,Ora,ID))
             connection.commit()
             connection.close()
-            return redirect('/dashboardFarmacia')
+            return redirect('/modificaPrenotazioni')
     else:
         return redirect('/loginFarmacia')    
-    return redirect('/dashboardFarmacia')
+    return redirect('/modificaPrenotazioni')
 
 @app.route('/rimozionePrenotazioni', methods=["GET", "POST"])
 def rimozionePrenotazioni():
@@ -406,13 +554,15 @@ def rimuoviPrenotazioni(ID):
         connection.close()
     else:
         return redirect('/loginFarmacia')
-    return redirect('/dashboardFarmacia')
+    return redirect('/rimozionePrenotazioni')
 
 @app.route('/creazioneDisponibilitaTamponi', methods=["GET", "POST"])
 def creaDisponibilitaTamponi():
     if 'loggedin' in session:
         connection = connectDB()
         tamponi = connection.execute('SELECT * FROM Tamponi WHERE ID_Farmacia = ?',(session['id'],)).fetchall()
+        totaleRapido = connection.execute('SELECT SUM(N_pezzi) as TOT FROM Tamponi WHERE tipo = ? AND ID_Farmacia = ?',('Rapido',session['id'],)).fetchall()
+        totaleMolecolare = connection.execute('SELECT SUM(N_pezzi) as TOT FROM Tamponi WHERE tipo = ? AND ID_Farmacia = ?',('Molecolare',session['id'],)).fetchall()
         connection.close()
 
         if request.method == "POST":
@@ -434,7 +584,7 @@ def creaDisponibilitaTamponi():
             return redirect('/creazioneDisponibilitaTamponi')
     else:
         return redirect('/loginFarmacia')
-    return render_template('/FarmaciaView/creazioneDisponibilitaTamponi.html',tamponi=tamponi)
+    return render_template('/FarmaciaView/creazioneDisponibilitaTamponi.html',tamponi=tamponi, totaleRapido=totaleRapido, totaleMolecolare=totaleMolecolare)
 
 @app.route('/rimuoviDisponibilitaTamponi', methods=["GET", "POST"])
 def rimozioneTamponi():
@@ -456,17 +606,19 @@ def rimuoviTamponi(ID_tamponi):
         connection.close()
     else:
         return redirect('/loginFarmacia')
-    return redirect('/dashboardFarmacia')
+    return redirect('/rimuoviDisponibilitaTamponi')
 
 @app.route('/modificaDisponibilitaTamponi', methods=["GET", "POST"])
 def modificaDisponibilitaTamponi():
+    msg = ""
     if 'loggedin' in session:
         connection = connectDB()
         tamponi = connection.execute('SELECT * FROM Tamponi WHERE ID_Farmacia = ?',(session['id'],)).fetchall()
         connection.close()
+        #msg="Aggiunta andata a buon fine"
     else:
         return redirect('/loginFarmacia')
-    return render_template('/FarmaciaView/modificaDisponibilitaTamponi.html', tamponi=tamponi)
+    return render_template('/FarmaciaView/modificaDisponibilitaTamponi.html', tamponi=tamponi, msg=msg)
 
 @app.route('/<int:ID_tamponi>/modificaDisponibilitaTamponi', methods=["POST"])
 def aggiornaTamponi(ID_tamponi):
@@ -487,10 +639,11 @@ def aggiornaTamponi(ID_tamponi):
                 connection.execute('INSERT INTO Orari (ID_Tampone, Orario, Giorno) VALUES (?,?,?)', (ID_tamponi,Orario,Giorno,))
             connection.commit()
             connection.close()
-            return redirect('/dashboardFarmacia')
+            msg = "Aggiornamento del tampone " + NomeTampone + " è avvenuto con successo!"
+            return redirect('/modificaDisponibilitaTamponi')
     else:
         return redirect('/loginFarmacia')
-    return redirect('/dashboardFarmacia')
+    return redirect('/modificaDisponibilitaTamponi')
 
 @app.route('/creazioneEsitoTamponi', methods=["GET", "POST"])
 def creazioneEsitoTamponi():
@@ -511,10 +664,10 @@ def aggiornaEsitoTamponi(ID):
             connection.execute('UPDATE Prenotazioni SET EsitoTampone = ? WHERE ID = ?', (EsitoTampone,ID))
             connection.commit()
             connection.close()
-            return redirect('/dashboardFarmacia')
+            return redirect('/creazioneEsitoTamponi')
     else:
         return redirect('/loginFarmacia')
-    return redirect('/dashboardFarmacia')
+    return redirect('/creazioneEsitoTamponi')
 
 # main
 if __name__=="__main__":

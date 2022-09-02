@@ -29,7 +29,7 @@ CREATE TABLE `Prenotazioni` (
 	Telefono VARCHAR(10),
 	Giorno DATE,
 	Ora TIME,
-	EsitoTampone VARCHAR(8),
+	EsitoTampone VARCHAR(20),
 	ID_Farmacia INTEGER
 );
 

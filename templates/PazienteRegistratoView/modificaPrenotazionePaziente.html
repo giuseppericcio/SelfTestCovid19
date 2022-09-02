@@ -36,19 +36,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboardAdmin"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/creaFarmacia"><i class="fa fa-plus" aria-hidden="true"></i> Crea Farmacia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ricercaFarmacia"><i class="fa fa-search" aria-hidden="true"></i>  Ricerca Farmacia</a>
+                    <a class="nav-link" href="/loginPaziente"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica Farmacia<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica prenotazione<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/rimozioneFarmacia"><i class="fa fa-trash" aria-hidden="true"></i>  Rimuovi Farmacia</a>
+                    <a class="nav-link" href="/rimozionePrenotazionePaziente"><i class="fa fa-trash" aria-hidden="true"></i>  Rimuovi prenotazione</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -62,7 +56,7 @@
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                        Modifica informazioni di una Farmacia </span></b></h2>
+                        Modifica informazioni prenotazione </span></b></h2>
     </div>
 
     <div class="container">
@@ -71,49 +65,37 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">NomeFarmacia </th>
-                            <th scope="col">Città</th>
-                            <th scope="col">CAP</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">PWD</th>
+                            <th scope="col">ID Prenotazione</th>
+                            <th scope="col">Nome Farmacia</th>
+                            <th scope="col">Giorno</th>
+                            <th scope="col">Ora</th>
                             <th scope="col">Azione</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for farmacia in farmacie %}
-                        <form action="/{{ farmacia.ID }}/aggiornaFarmacia" method="POST">
+                        {% for prenotazionePrenotati in prenotazionePrenotato %}
+                        <form action="/{{ prenotazionePrenotati.ID }}/aggiornaPrenotazionePaziente" method="POST">
                             <tr>
-                                <th scope="row">{{ farmacia.ID }}</th>
+                                <th scope="row">{{ prenotazionePrenotati.ID }}</th>
                                 <td>
                                     <div class="form-group mr-1">
                                         <input type="text" class="form-control" name="NomeFarmacia"
-                                            placeholder="Nome della farmacia" value="{{ farmacia.NomeFarmacia }}"
+                                            placeholder="Nome della farmacia" value="{{ prenotazionePrenotati.NomeFarmacia }}"
                                             required>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="Citta" placeholder="Città"
-                                            value="{{ farmacia.Citta }}" required>
+                                        <input type="date" class="form-control" id="dateStandard" name="Giorno"
+                                            placeholder="Giorno scelto del prenotato" value="{{ prenotazionePrenotati.Giorno }}"
+                                            required>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="CAP" placeholder="CAP"
-                                            value="{{ farmacia.CAP }}" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="email" class="form-control" name="Email" placeholder="Email"
-                                            value="{{ farmacia.Email }}" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mr-1">
-                                        <input type="text" class="form-control" name="PWD" placeholder="Password"
-                                            value="{{ farmacia.PWD }}" required>
+                                        <input type="time" class="form-control" id="timeStandard" name="Ora"
+                                            placeholder="Ora scelta del prenotato" value="{{ prenotazionePrenotati.Ora }}"
+                                            required>
                                     </div>
                                 </td>
                                 <td>

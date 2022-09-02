@@ -36,19 +36,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/dashboardAdmin"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+          <a class="nav-link" href="/loginPaziente"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/creaFarmacia"><i class="fa fa-plus" aria-hidden="true"></i> Crea Farmacia</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/ricercaFarmacia"><i class="fa fa-search" aria-hidden="true"></i> Ricerca Farmacia</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/modificaFarmacia"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica Farmacia</a>
+          <a class="nav-link" href="/modificaPrenotazionePaziente"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica prenotazione</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa fa-trash" aria-hidden="true"></i>  Rimuovi Farmacia<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#"><i class="fa fa-trash" aria-hidden="true"></i>  Rimuovi prenotazione<span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -62,33 +55,31 @@
   <div class="container">
     <center>
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-            Rimozione di una Farmacia </span></b></h2>
+            Rimozione di una prenotazione </span></b></h2>
   </div>
 
   <div class="container">
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nome Farmacia</th>
-          <th scope="col">Città</th>
-          <th scope="col">CAP</th>
-          <th scope="col">Email</th>
-          <th scope="col">PWD</th>
-          <th scope="col">Azione</th>
+          <tr>
+            <th scope="col">ID Prenotazione</th>
+            <th scope="col">Nome Farmacia</th>
+            <th scope="col">Giorno</th>
+            <th scope="col">Ora</th>
+            <th scope="col">Azione</th>
+          </tr>
         </tr>
       </thead>
       <tbody>
-        {% for farmacia in farmacie %}
+        {% for prenotazionePrenotati in prenotazionePrenotato %}
         <tr>
-          <th scope="row">{{ farmacia.ID }}</th>
-          <td>{{ farmacia.NomeFarmacia }}</td>
-          <td>{{ farmacia.Citta }}</td>
-          <td>{{ farmacia.CAP }}</td>
-          <td>{{ farmacia.Email }}</td>
-          <td>{{ farmacia.PWD }}</td>
+          <th scope="row">{{ prenotazionePrenotati.ID }}</th>
+          <td>{{ prenotazionePrenotati.NomeFarmacia }}</td>
+          <td>{{ prenotazionePrenotati.Giorno }}</td>
+          <td>{{ prenotazionePrenotati.Ora }}</td>
           <td>
-            <form action="{{ farmacia.ID }}/rimuoviFarmacia" method="POST">
+            <form action="{{ prenotazionePrenotati.ID }}/rimuoviPrenotazionePaziente" method="POST">
               <button type="submit" class="btn btn-danger btn-sm my-2"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </form>
           </td>

@@ -49,7 +49,7 @@
                         </h2>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -74,6 +74,30 @@
     </div>
 
     <div class="container">
+        {% for totaleRap in totaleRapido %}
+        {% if totaleRap.TOT < 5 %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>ATTENZIONE!</strong> Si necessitano di tamponi <b>RAPIDI</b> in magazzino.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for totaleMol in totaleMolecolare %}
+        {% if totaleMol.TOT < 5 %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>ATTENZIONE!</strong> Si necessitano di tamponi <b>MOLECOLARI</b> in magazzino.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container">
         <div class="row">
             <div class="col-sm">
                 {% for totaleRap in totaleRapido %}
@@ -95,8 +119,8 @@
             <div class="card border-danger m-3" style="max-width: 18rem;">
                 <div class="card-body text-danger">
                     <span class="badge badge-pill badge-danger mb-3">Gestione esito tamponi</span>
-                    <h5 class="card-title">&#10010 Creazione esito tampone</h5>
-                    <p class="card-text">Creazione esito tamponi rapidi e/o molecolari ai pazienti prenotati </p>
+                    <h5 class="card-title">&#10010 Aggiornare esito tampone</h5>
+                    <p class="card-text">Aggiornamento esito tamponi rapidi e/o molecolari ai prenotati </p>
                     <a href="/creazioneEsitoTamponi" class="card-link text-danger">&#8594 Accedi</a>
                 </div>
             </div>
@@ -155,7 +179,7 @@
     <div class="container">
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                        <i class="fa fa-list" aria-hidden="true"></i> Lista delle Prenotazioni </span></b></h2>
+                        <i class="fa fa-list" aria-hidden="true"></i> Lista delle prenotazioni del giorno </span></b></h2>
 
             <div class="d-flex justify-content-center mt-5 table-responsive">
                 <table class="table">
@@ -282,7 +306,7 @@
     <script type="text/javascript">
         var today = new Date();
         var day = today.getDay();
-        var daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
+        var daylist = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         var dateTime = date + ' ' + time;

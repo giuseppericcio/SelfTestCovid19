@@ -88,6 +88,12 @@
           <input type="password" class="form-control" name="PWD" placeholder="Password"
             value="{{ request.form['PWD'] }}" required>
         </div>
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck1" required>
+            <label class="custom-control-label" for="customCheck1">Dichiaro di aver letto le normative sulla <a href="">privacy</a></label>
+          </div>
+        </div>
         <div class="form-group text-center mt-3">
           <button type="submit" class="btn btn-success">Prenota tampone rapido</button>
         </div>

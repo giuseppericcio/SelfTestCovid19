@@ -89,25 +89,27 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle"> Accedi alla pagina di prenotazione </h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-ticket" aria-hidden="true"></i> Accedi alla pagina di prenotazione </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                            <h7>Se sei già <b>registrato</b> prenota il tampone con le credenziali usate in precedenza</h7>
                                             <div class="form-group">
                                                 <center>
                                                     <form action="/{{ tampone.ID_farmacia }}/{{ tampone.ID_tampone }}/{{ tampone.Giorno }}/prenotaRegistrato" method="POST">
                                                         <button type="submit" class="btn btn-success">
-                                                        Paziente Registrato </button>
+                                                            <i class="fa fa-user" aria-hidden="true"></i> Paziente Registrato </button>
                                                     </form>
                                                 </center>
                                             </div>
+                                            <h7>Se <b>non</b> sei già <b>registrato</b> puoi comunque prenotare il tampone, <i>ti ricordiamo però che dopo la prenotazione sarai registrato nel sistema</i></h7>
                                             <div class="form-group">
                                                 <center>
                                                     <form action="/{{ tampone.ID_farmacia }}/{{ tampone.ID_tampone }}/{{ tampone.Giorno }}/prenotaNuovo" method="POST">
                                                         <button type="submit" class="btn btn-success">
-                                                        Nuovo Paziente </button>
+                                                            <i class="fa fa-user-o" aria-hidden="true"></i> Nuovo Paziente </button>
                                                     </form>
                                                 </center>
                                             </div>
