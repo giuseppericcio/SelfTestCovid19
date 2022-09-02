@@ -49,7 +49,7 @@
                         </h2>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout </a>
                 </li>
             </ul>
         </div>
@@ -67,15 +67,14 @@
         </center>
         <div class="d-flex justify-content-center">
             <center><a href="#listaprenotati" class="btn btn-primary m-3" role="button">
-                &#9989 Vai alla lista prenotati della giornata</a></center>
+                &#9989 Vai alla lista prenotati della giornata </a></center>
             <center><a href="/checkQRCode" class="btn btn-primary m-3" role="button">
-                <i class="fa fa-qrcode" aria-hidden="true"></i> Check QR Code</a></center>
+                <i class="fa fa-qrcode" aria-hidden="true"></i> Check QR Code </a></center>
         </div>
     </div>
 
     <div class="container">
-        {% for totaleRap in totaleRapido %}
-        {% if totaleRap.TOT < 5 %}
+        {% if totaleRapido['TOT'] < 5 %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>ATTENZIONE!</strong> Si necessitano di tamponi <b>RAPIDI</b> in magazzino.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -83,10 +82,8 @@
             </button>
         </div>
         {% endif %}
-        {% endfor %}
 
-        {% for totaleMol in totaleMolecolare %}
-        {% if totaleMol.TOT < 5 %}
+        {% if totaleMolecolare['TOT'] < 5 %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>ATTENZIONE!</strong> Si necessitano di tamponi <b>MOLECOLARI</b> in magazzino.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -94,22 +91,17 @@
             </button>
         </div>
         {% endif %}
-        {% endfor %}
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                {% for totaleRap in totaleRapido %}
                 <h5 style="text-align: right;">Disponibilità tampone rapido <span
-                        class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
-                    {% endfor %}
+                        class="badge badge-pill badge-success">{{ totaleRapido['TOT'] }}</span></h3>
             </div>
             <div class="col-sm">
-                {% for totaleMol in totaleMolecolare %}
                 <h5>Disponibilità tampone molecolare <span
-                        class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
-                    {% endfor %}
+                        class="badge badge-pill badge-danger">{{ totaleMolecolare['TOT'] }}</span></h3>
             </div>
         </div>
     </div>
@@ -121,7 +113,7 @@
                     <span class="badge badge-pill badge-danger mb-3">Gestione esito tamponi</span>
                     <h5 class="card-title">&#10010 Aggiornare esito tampone</h5>
                     <p class="card-text">Aggiornamento esito tamponi rapidi e/o molecolari ai prenotati </p>
-                    <a href="/creazioneEsitoTamponi" class="card-link text-danger">&#8594 Accedi</a>
+                    <a href="/aggiuntaEsitoTamponi" class="card-link text-danger">&#8594 Accedi</a>
                 </div>
             </div>
             <div class="card border-primary m-3" style="max-width: 18rem;">
@@ -193,6 +185,7 @@
                             <th scope="col">Telefono</th>
                             <th scope="col">Giorno</th>
                             <th scope="col">Ora</th>
+                            <th scope="col">Tipo Tampone</th>
                             <th scope="col">Esito</th>
                         </tr>
                     </thead>
@@ -207,10 +200,11 @@
                             <td>{{ prenotazione.Telefono }}</td>
                             <td>{{ prenotazione.Giorno }}</td>
                             <td>{{ prenotazione.Ora }}</td>
+                            <td>{{ prenotazione.TipoTampone }}</td>
                             <td>{{ prenotazione.EsitoTampone }}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
-                    {% endfor %}
                 </table>
             </div>
     </div>

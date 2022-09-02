@@ -99,8 +99,11 @@
                 <tr>
                     <th scope="col">ID Prenotazione</th>
                     <th scope="col">Nome Farmacia</th>
+                    <th scope="col">Città</th>
+                    <th scope="col">Indirizzo</th>
                     <th scope="col">Giorno</th>
                     <th scope="col">Ora</th>
+                    <th scope="col">Tipo Tampone</th>
                     <th scope="col">Esito</th>
                 </tr>
             </thead>
@@ -109,8 +112,11 @@
                 <tr>
                     <th scope="row">{{ esiti.ID }}</th>
                     <td>{{ esiti.NomeFarmacia }}</td>
+                    <td>{{ esiti.Citta }}</td>
+                    <td>{{ esiti.Indirizzo }}</td>
                     <td>{{ esiti.Giorno }}</td>
                     <td>{{ esiti.Ora }}</td>
+                    <td>{{ esiti.TipoTampone }}</td>
                     <td>
                         {% if esiti.EsitoTampone == "Negativo" %}
                         {% block content %}

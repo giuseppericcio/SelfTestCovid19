@@ -61,7 +61,7 @@
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
             Creazione disponibilità tamponi</span></b></h2>
       <h7>Aggiungi disponibilità dei tamponi nel sistema e aggiorna <b>la disponibilità</b> giornaliera per la somministrazione del tampone. <br> 
-        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Puoi aggiungere nuovi tamponi qualora siano arrivati in magazzino nuovi tamponi da <b>altre case produttici</b>. <br>
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Puoi aggiungere nuovi tamponi qualora siano arrivati in magazzino da <b>altre case produttici</b>. <br>
       Se la casa produttice dei tamponi è già presente nel sistema, vai in <b>modifica disponibilità tamponi</b></h7>
     </center>
   </div>
@@ -100,7 +100,7 @@
       </div>
       <div class="form-group">
         <label for="N_pezzi">Numero pezzi</label>
-        <input type="text" class="form-control" name="N_pezzi" placeholder="N_pezzi"
+        <input type="number" class="form-control" name="N_pezzi" placeholder="N_pezzi"
           value="{{ request.form['N_pezzi'] }}" required>
         <small id="npezziHelp" class="form-text text-muted"><b><i class="fa fa-exclamation-circle" aria-hidden="true"></i> ATTENZIONE:</b> quando aggiorni la disponibilità dei tamponi tieni d'occhio il contatore della disponibilità. Puoi aggiornare il numero dei pezzi in funzione di esso.</small>
       </div>
@@ -122,7 +122,7 @@
       </div>
       <div class="form-group">
         <label for="Prezzo">Prezzo €</label>
-        <input type="text" class="form-control" name="Prezzo" placeholder="Prezzo" value="{{ request.form['Prezzo'] }}"
+        <input type="number" class="form-control" name="Prezzo" placeholder="Prezzo" value="{{ request.form['Prezzo'] }}"
           required>
       </div>
       <div class="form-group text-center mt-3">

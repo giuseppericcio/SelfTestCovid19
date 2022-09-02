@@ -75,7 +75,7 @@
     <div class="d-flex justify-content-center m-5">
         <center>
             <h4><p style="color: #006eff;"> Risultato della scansione </p></h4>
-            <div id="result"></div>
+            <div class = "m-4" id="result"></div>
         </center>
     </div>
 
@@ -163,10 +163,26 @@
 
 
     <!--JavaScript-->
+    <!--QRCode Script-->
     <script src="/static/html5-qrcode.min.js"></script>
     <script type="text/javascript">
         function onScanSuccess(qrCodeMessage) {
-            document.getElementById('result').innerHTML = '<h5 class="alert alert-success" role="alert" style="font-family: sans-serif;"><i class="fa fa-check" aria-hidden="true"> Prenotazione riconosciuta - Nome: Cognome: </i></h5>';
+            "{% for prenotazione in prenotazioni %}"
+                var id = "{{ prenotazione.ID }}"
+                if (id == qrCodeMessage) {
+                    var nome = "{{ prenotazione.Nome }}"
+                    var cognome = "{{ prenotazione.Cognome }}"
+                    document.getElementById('result').innerHTML = '\
+                    <h7 class="alert alert-success" role="alert">\
+                    <i class="fa fa-check" aria-hidden="true"></i> Prenotazione <b>nr. ' + qrCodeMessage + '</b> \
+                    riconosciuta - Nome: ' + nome +' Cognome: ' + cognome + ' </h7>';
+                } else {
+                    document.getElementById('result').innerHTML = '\
+                    <h7 class="alert alert-danger" role="alert">\
+                    <i class="fa fa-check" aria-hidden="true"></i> Prenotazione <b>nr. ' + qrCodeMessage + '</b> \
+                    NON riconosciuta </h7>';
+                }
+            "{% endfor %}"
         }
         function onScanError(errorMessage) {
             //handle scan error

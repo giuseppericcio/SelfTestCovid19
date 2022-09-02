@@ -62,7 +62,7 @@
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
                         Modifica disponibilità tamponi in Farmacia </span></b></h2>
-            <h7><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Modifica la disponibilità dei tamponi <b>giornarlmente</b>. <br>
+            <h7><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Modifica la disponibilità dei tamponi <b>giornalmente</b>. <br>
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Occhio, modifica soltanto <b>una riga</b> e conferma le modifiche con il pulsante <i class="fa fa-pencil-square-o"
                 aria-hidden="true"></i </h7>
     </div>
@@ -70,7 +70,7 @@
     <div class="d-flex justify-content-center mt-3">
         {% if msg != "" %}
         {% block content %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ msg }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -118,7 +118,7 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="N_pezzi" placeholder="N_pezzi"
+                                    <input type="number" class="form-control" name="N_pezzi" placeholder="N_pezzi"
                                         value="{{ tampone.N_pezzi }}" required>
                                 </div>
                             </td>

@@ -60,6 +60,19 @@
         </center>
     </div>
 
+    <div class="d-flex justify-content-center mt-3">
+        {% if msg != "" %}
+        {% block content %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ msg }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endblock content %}
+        {% endif %}
+    </div>
+
     <div class="container">
         <div class="container-sm m-5">
             <div class="d-flex justify-content-center mt-5">
@@ -103,14 +116,14 @@
                                 </td>
                                 <td>
                                     <div class="form-group mr-1">
-                                        <input type="codicefiscale" class="form-control" name="CodiceFiscale"
+                                        <input type="text" class="form-control" name="CodiceFiscale"
                                             placeholder="Codice fiscale del prenotato"
                                             value="{{ prenotazione.CodiceFiscale }}" required>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group mr-1">
-                                        <input type="telefono" class="form-control" name="Telefono"
+                                        <input type="number" class="form-control" name="Telefono"
                                             placeholder="Telefono del prenotato" value="{{ prenotazione.Telefono }}"
                                             required>
                                     </div>
