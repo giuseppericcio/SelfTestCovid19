@@ -1,7 +1,8 @@
 #################################################
 # SelfTestCOVID-19
 #################################################
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, url_for, Response
+from fpdf import FPDF 
 import sqlite3, pickle
 import smtplib, ssl, qrcode, os
 from email.mime.multipart import MIMEMultipart
@@ -155,6 +156,43 @@ def covid_checker():
 @app.route('/About', methods=["GET", "POST"])
 def About():
     return render_template('about.html')
+
+@app.route('/download/report/pdf/<int:ID>', methods=["GET", "POST"])
+def download_report(ID):
+    pdf = FPDF()
+    pdf.add_page()
+
+    page_width = pdf.w - 2 * pdf.l_margin
+
+    pdf.set_font('Arial','B',14.0) 
+    pdf.cell(page_width, 0.0, 'CERTIFICATO TAMPONE', align='C')
+    pdf.ln(10)
+
+    pdf.set_font('Arial', '', 12)
+        
+    col_width = page_width/4
+
+    connection = connectDB()
+    nomepaziente = connection.execute('SELECT Nome FROM Pazienti WHERE ID = ?',(ID,)).fetchone()
+    connection.close()
+
+    #Non sono riuscito (a volo dopo la partita, non so cosa sto sbagliando) a far passare i dati indicati
+    pdf.cell(page_width, 0.0, 'GENTILE ' + str(nomepaziente) + ' Cognome', align='L')
+    pdf.ln(7)
+    pdf.cell(page_width, 0.0, 'Il tampone MOLECOLARE/RAPIDO somministrato ', align='L') 
+    pdf.ln(7) 
+    pdf.cell(page_width, 0.0, 'nella Farmacia XYZ in data XXYYZZ è risultato NEGATIVO', align='L')  
+    #pdf.cell(page_width, 0.0, 'Il tampone' + str(tipoTampone) + ' effettuato nella Farmacia ' + str(nomefarmacia) + 'in data ' + str(data) +' è risultato ' + str(esitoTampone), align='L')  
+
+    th = pdf.font_size
+
+    pdf.ln(10)
+          
+    pdf.set_font('Arial','',10.0) 
+    pdf.cell(page_width, 0.0, '- La si ringrazia per aver scelto la nostra farmacia -', align='C')
+        
+    return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=certificato_tampone_selftestCOVID19.pdf'})
+
 
 @app.route('/scopri', methods=["GET", "POST"])
 def scopri():

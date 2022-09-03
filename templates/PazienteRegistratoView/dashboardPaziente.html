@@ -105,6 +105,7 @@
                     <th scope="col">Ora</th>
                     <th scope="col">Tipo Tampone</th>
                     <th scope="col">Esito</th>
+                    <th scope="col">Certificato</th>
                 </tr>
             </thead>
             <tbody>
@@ -129,8 +130,9 @@
                         {% elif esiti.EsitoTampone == "In analisi" %}
                         <span class="badge bg-primary text-white" style="font-size: 16px;">In Analisi</span>
                         {% endif %}
-                        
-
+                    </td>
+                    <td>
+                        <a href="{{ url_for('.download_report', ID=esiti.ID) }}">Certificato disponibile</a>
                     </td>
                 </tr>
             </tbody>
