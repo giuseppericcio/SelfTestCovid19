@@ -57,35 +57,36 @@
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
                         Farmacie trovate </span></b></h2>
-    </div>
 
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome Farmacia</th>
-                    <th scope="col">Città</th>
-                    <th scope="col">CAP</th>
-                    <th scope="col">Indirizzo</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">PWD</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for farmacia in farmacie %}
-                <tr>
-                    <th scope="row">{{ farmacia.ID }}</th>
-                    <td>{{ farmacia.NomeFarmacia }}</td>
-                    <td>{{ farmacia.Citta }}</td>
-                    <td>{{ farmacia.CAP }}</td>
-                    <td>{{ farmacia.Indirizzo }}</td>
-                    <td>{{ farmacia.Email }}</td>
-                    <td>{{ farmacia.PWD }}</td>
-                </tr>
-            </tbody>
-            {% endfor %}
-        </table>
+            <div class="d-flex justify-content-center mt-5 table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome Farmacia</th>
+                            <th scope="col">Città</th>
+                            <th scope="col">CAP</th>
+                            <th scope="col">Indirizzo</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">PWD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for farmacia in farmacie %}
+                        <tr>
+                            <th scope="row">{{ farmacia.ID }}</th>
+                            <td>{{ farmacia.NomeFarmacia }}</td>
+                            <td>{{ farmacia.Citta }}</td>
+                            <td>{{ farmacia.CAP }}</td>
+                            <td>{{ farmacia.Indirizzo }}</td>
+                            <td>{{ farmacia.Email }}</td>
+                            <td>{{ farmacia.PWD }}</td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </center>
     </div>
 
 

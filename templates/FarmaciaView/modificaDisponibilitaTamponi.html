@@ -36,23 +36,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboardFarmacia"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+                    <a class="nav-link" href="/dashboardFarmacia"><i class="fa fa-tachometer" aria-hidden="true"></i>
+                        Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/creazioneDisponibilitaTamponi"><i class="fa fa-plus" aria-hidden="true"></i> Creazione disponibilità tamponi</a>
+                    <a class="nav-link" href="/creazioneDisponibilitaTamponi"><i class="fa fa-plus"
+                            aria-hidden="true"></i> Creazione disponibilità tamponi</a>
                 </li>
                 <li class="nav-item">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica disponibilità tamponi<span
-                            class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica
+                        disponibilità tamponi<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/rimuoviDisponibilitaTamponi"><i class="fa fa-trash" aria-hidden="true"></i> Rimuovi disponibilità tamponi</a>
+                    <a class="nav-link" href="/rimuoviDisponibilitaTamponi"><i class="fa fa-trash"
+                            aria-hidden="true"></i> Rimuovi disponibilità tamponi</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
+                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -62,103 +65,116 @@
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
                         Modifica disponibilità tamponi in Farmacia </span></b></h2>
-            <h7><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Modifica la disponibilità dei tamponi <b>giornalmente</b>. <br>
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Occhio, modifica soltanto <b>una riga</b> e conferma le modifiche con il pulsante <i class="fa fa-pencil-square-o"
-                aria-hidden="true"></i </h7>
-    </div>
+            <h7><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Modifica la disponibilità dei tamponi
+                <b>giornalmente</b>. <br>
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Occhio, modifica soltanto <b>una riga</b> e
+                conferma le modifiche con il pulsante <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </h7>
 
-    <div class="d-flex justify-content-center mt-3">
-        {% if msg != "" %}
-        {% block content %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ msg }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {% endblock content %}
-        {% endif %}
-    </div>
+            <div class="d-flex justify-content-center mt-3">
+                {% if msg != "" %}
+                {% block content %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ msg }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endblock content %}
+                {% elif msg_error != "" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ msg_error }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
 
-    <div class="container">
-        <div class="d-flex justify-content-center mt-5">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome tampone</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Numero pezzi</th>
-                        <th scope="col">Giorno</th>
-                        <th scope="col">Ora Inizio</th>
-                        <th scope="col">Ora Fine</th>
-                        <th scope="col">Prezzo €</th>
-                        <th scope="col">Azione</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for tampone in tamponi %}
-                    <form action="/{{ tampone.ID }}/modificaDisponibilitaTamponi" method="POST">
-                        <tr>
-                            <th scope="row">{{ tampone.ID }}</th>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="NomeTampone"
-                                        placeholder="Nome del tampone" value="{{ tampone.NomeTampone }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <select class="custom-select" name="Tipo" id="Tipo">
-                                        <option value="{{ tampone.Tipo }}" selected hidden>{{ tampone.Tipo }}</option>
-                                        <option value="Rapido">Rapido</option>
-                                        <option value="Molecolare">Molecolare</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" name="N_pezzi" placeholder="N_pezzi"
-                                        value="{{ tampone.N_pezzi }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="date" class="form-control" name="Giorno" placeholder="Giorno"
-                                        value="{{ tampone.Giorno }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="time" class="form-control" name="OraInizio" placeholder="Fascia oraria"
-                                        value="{{ tampone.OraInizio }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="time" class="form-control" name="OraFine" placeholder="Fascia oraria"
-                                        value="{{ tampone.OraFine }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="Prezzo" placeholder="Prezzo"
-                                        value="{{ tampone.Prezzo }}" required>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-square-o"
-                                            aria-hidden="true"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </form>
-                </tbody>
-                {% endfor %}
-            </table>
-        </div>
+            <div class="container">
+                <div class="d-flex justify-content-center mt-5 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome tampone</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Numero pezzi</th>
+                                <th scope="col">Giorno</th>
+                                <th scope="col">Ora Inizio</th>
+                                <th scope="col">Ora Fine</th>
+                                <th scope="col">Prezzo €</th>
+                                <th scope="col">Azione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tampone in tamponi %}
+                            <form action="/{{ tampone.ID }}/modificaDisponibilitaTamponi" method="POST">
+                                <tr>
+                                    <th scope="row">{{ tampone.ID }}</th>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="NomeTampone"
+                                                placeholder="Nome del tampone" value="{{ tampone.NomeTampone }}"
+                                                required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select class="custom-select" name="Tipo" id="Tipo">
+                                                <option value="{{ tampone.Tipo }}" selected hidden>{{ tampone.Tipo }}
+                                                </option>
+                                                <option value="Rapido">Rapido</option>
+                                                <option value="Molecolare">Molecolare</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" name="N_pezzi"
+                                                placeholder="N_pezzi" value="{{ tampone.N_pezzi }}" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="date" class="form-control" name="Giorno" placeholder="Giorno"
+                                                value="{{ tampone.Giorno }}" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="time" class="form-control" name="OraInizio"
+                                                placeholder="Fascia oraria" value="{{ tampone.OraInizio }}" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="time" class="form-control" name="OraFine"
+                                                placeholder="Fascia oraria" value="{{ tampone.OraFine }}" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="number" step="0.01" class="form-control" name="Prezzo"
+                                                placeholder="Prezzo" value="{{ tampone.Prezzo }}" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </center>
     </div>
+</body>
 
     <!--Copyright-->
     <!-- Footer -->

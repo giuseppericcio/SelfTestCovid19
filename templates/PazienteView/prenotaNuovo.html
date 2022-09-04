@@ -36,12 +36,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home <span
-                    class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home <span
+              class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/About"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il
-                test</a>
+          <a class="nav-link" href="/About"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il
+            test</a>
         </li>
       </ul>
     </div>
@@ -51,153 +51,165 @@
     <center>
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
             Inserisci le informazioni per la prenotazione </span></b></h2>
-  </div>
 
-  <div class="container">
-    <form action="/{{ ID_farmacia }}/{{ ID_tampone }}/{{ Giorno }}/confermaPrenotaNuovo" method="POST">
+      <div class="d-flex justify-content-center mt-3">
+        {% if msg_error != "" %}
+        {% block content %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ msg_error }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endblock content %}
+        {% endif %}
+      </div>
+    </center>
+
+    <div class="container">
+      <form action="/{{ ID_farmacia }}/{{ ID_tampone }}/{{ Giorno }}/confermaPrenotaNuovo" method="POST">
         <div class="form-group">
-            <label for="Giorno">Giorno</label>
-          <input type="date" class="form-control" name="Giorno" placeholder="Giorno"
-            value="{{ Giorno }}" required readonly>
+          <label for="Giorno">Giorno</label>
+          <input type="date" class="form-control" name="Giorno" placeholder="Giorno" value="{{ Giorno }}" required readonly>
         </div>
         <div class="form-group">
-            <label for="Ora">Ora</label>
-            <select type="time" class="form-control" name="Ora" placeholder="Ora" required>
-                <option value="" hidden> Seleziona un orario </option>
-                {% for Ora in Orari %}
-                <option value="{{ Ora.Orario }}">{{ Ora.Orario }}</option>
-                {% endfor %}
-            </select>
+          <label for="Ora">Ora</label>
+          <select type="time" class="form-control" name="Ora" placeholder="Ora" required>
+            <option value="" hidden> Seleziona un orario </option>
+            {% for Ora in Orari %}
+            <option value="{{ Ora.Orario }}">{{ Ora.Orario }}</option>
+            {% endfor %}
+          </select>
         </div>
         <div class="form-group">
           <label for="Nome">Nome</label>
-          <input type="text" class="form-control" name="Nome" placeholder="Nome del paziente"
-            value="{{ request.form['Nome'] }}" required>
+          <input type="text" class="form-control" name="Nome" placeholder="Nome del paziente" required>
         </div>
         <div class="form-group">
           <label for="Cognome">Cognome</label>
-          <input type="text" class="form-control" name="Cognome" placeholder="Cognome del paziente"
-            value="{{ request.form['Cognome'] }}" required>
+          <input type="text" class="form-control" name="Cognome" placeholder="Cognome del paziente" required>
         </div>
         <div class="form-group">
           <label for="Email">Email</label>
-          <input type="email" class="form-control" name="Email" placeholder="Email del paziente" value="{{ request.form['Email'] }}" required>
+          <input type="email" class="form-control" name="Email" placeholder="Email del paziente" required>
         </div>
         <div class="form-group">
           <label for="PWD">Password</label>
-          <input type="password" class="form-control" name="PWD" placeholder="Password"
-            value="{{ request.form['PWD'] }}" required>
+          <input type="password" class="form-control" name="PWD" placeholder="Password" required>
         </div>
         <div class="form-group">
-            <label for="CodiceFiscale">Codice Fiscale</label>
-            <input type="text" class="form-control" name="CodiceFiscale" placeholder="Codice Fiscale del paziente"
-              value="{{ request.form['CodiceFiscale'] }}" required>
-          </div>
+          <label for="CodiceFiscale">Codice Fiscale</label>
+          <input type="text" class="form-control" name="CodiceFiscale" placeholder="Codice Fiscale del paziente"
+            required>
+        </div>
         <div class="form-group">
           <label for="Telefono">Telefono</label>
           <input type="text" class="form-control" name="Telefono" placeholder="Numero di Telefono del paziente"
-            value="{{ request.form['Telefono'] }}" required>
+            required>
         </div>
         <div class="form-group">
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="customCheck1" required>
-            <label class="custom-control-label" for="customCheck1">Dichiaro di aver letto le normative sulla <a href="">privacy</a></label>
+            <label class="custom-control-label" for="customCheck1">Dichiaro di aver letto le normative sulla <a
+                href="">privacy</a></label>
           </div>
         </div>
         <div class="form-group text-center mt-3">
           <button type="submit" class="btn btn-success">Prenota tampone rapido</button>
         </div>
       </form>
-  </div>
-
-  <!--Copyright-->
-  <!-- Footer -->
-  <footer class="text-lg text-lg-start bg-white text-muted">
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-    </section>
-    <!-- Section: Social media -->
-
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              <i class="fas fa-gem me-3"></i>Self Test COVID-19
-            </h6>
-            <p>
-              INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              Prodotti
-            </h6>
-            <p>
-              <a href="#!" class="text-reset">Tampone rapido</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Tampone molecolare</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              Accesso al sistema
-            </h6>
-            <p>
-              <a href="/loginFarmacia" class="text-reset">Farmacia</a>
-            </p>
-            <p>
-              <a href="/loginAdmin" class="text-reset">Admin</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-            <p><i class="fa fa-github"></i> Visita il nostro repository</p>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-    </section>
-    <!-- Section: Links  -->
-
-    <!-- Copyright -->
-    <hr>
-    <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
-      © 2022 Copyright:
-      <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
     </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
+  </div>
+</body>
+
+<!--Copyright-->
+<!-- Footer -->
+<footer class="text-lg text-lg-start bg-white text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">
+            <i class="fas fa-gem me-3"></i>Self Test COVID-19
+          </h6>
+          <p>
+            INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">
+            Prodotti
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Tampone rapido</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Tampone molecolare</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">
+            Accesso al sistema
+          </h6>
+          <p>
+            <a href="/loginFarmacia" class="text-reset">Farmacia</a>
+          </p>
+          <p>
+            <a href="/loginAdmin" class="text-reset">Admin</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
+          <p><i class="fa fa-github"></i> Visita il nostro repository</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <hr>
+  <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
+    © 2022 Copyright:
+    <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+</nav>
 
 
-  <!--JavaScript-->
-  <!--jQuery, Popper.js, Bootstrap JS-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--JavaScript-->
+<!--jQuery, Popper.js, Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

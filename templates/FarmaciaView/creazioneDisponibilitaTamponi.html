@@ -36,16 +36,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/dashboardFarmacia"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+          <a class="nav-link" href="/dashboardFarmacia"><i class="fa fa-tachometer" aria-hidden="true"></i>
+            Dashboard</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Creazione disponibilità tamponi<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Creazione disponibilità
+            tamponi<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/modificaDisponibilitaTamponi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica disponibilità tamponi</a>
+          <a class="nav-link" href="/modificaDisponibilitaTamponi"><i class="fa fa-pencil-square-o"
+              aria-hidden="true"></i> Modifica disponibilità tamponi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/rimuoviDisponibilitaTamponi"><i class="fa fa-trash" aria-hidden="true"></i> Rimuovi disponibilità tamponi</a>
+          <a class="nav-link" href="/rimuoviDisponibilitaTamponi"><i class="fa fa-trash" aria-hidden="true"></i> Rimuovi
+            disponibilità tamponi</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -60,48 +64,49 @@
     <center>
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
             Creazione disponibilità tamponi</span></b></h2>
-      <h7>Aggiungi disponibilità dei tamponi nel sistema e aggiorna <b>la disponibilità</b> giornaliera per la somministrazione del tampone. <br> 
-        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Puoi aggiungere nuovi tamponi qualora siano arrivati in magazzino da <b>altre case produttici</b>. <br>
-      Se la casa produttice dei tamponi è già presente nel sistema, vai in <b>modifica disponibilità tamponi</b></h7>
+      <h7>Aggiungi disponibilità dei tamponi nel sistema e aggiorna <b>la disponibilità</b> giornaliera per la
+        somministrazione del tampone. <br>
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Puoi aggiungere nuovi tamponi qualora siano arrivati
+        in magazzino da <b>altre case produttici</b>. <br>
+        Se la casa produttice dei tamponi è già presente nel sistema, vai in <b>modifica disponibilità tamponi</b>
+      </h7>
     </center>
   </div>
 
   <div class="container my-4">
     <div class="row">
-        <div class="col-sm">
-            {% for totaleRap in totaleRapido %}
-            <h5 style="text-align: right;">Disponibilità tampone rapido <span
-                    class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
-                {% endfor %}
-        </div>
-        <div class="col-sm">
-            {% for totaleMol in totaleMolecolare %}
-            <h5>Disponibilità tampone molecolare <span
-                    class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
-                {% endfor %}
-        </div>
+      <div class="col-sm">
+        {% for totaleRap in totaleRapido %}
+        <h5 style="text-align: right;">Disponibilità tampone rapido <span
+            class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
+          {% endfor %}
+      </div>
+      <div class="col-sm">
+        {% for totaleMol in totaleMolecolare %}
+        <h5>Disponibilità tampone molecolare <span class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
+          {% endfor %}
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="d-flex justify-content-center mt-3">
-  {% if msg_error != "" %}
-  {% block content %}
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <div class="d-flex justify-content-center mt-3">
+    {% if msg_error != "" %}
+    {% block content %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
       {{ msg_error }}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
+    </div>
+    {% endblock content %}
+    {% endif %}
   </div>
-  {% endblock content %}
-  {% endif %}
-</div>
 
   <div class="container">
     <form method="POST">
       <div class="form-group">
         <label for="NomeTampone">Nome Tampone</label>
-        <input type="text" class="form-control" name="NomeTampone" placeholder="Nome/Marca del tampone"
-          value="{{ request.form['NomeTampone'] }}" required>
+        <input type="text" class="form-control" name="NomeTampone" placeholder="Nome/Marca del tampone" required>
       </div>
       <div class="form-group">
         <label for="Tipo">Tipo tampone</label>
@@ -112,30 +117,28 @@
       </div>
       <div class="form-group">
         <label for="N_pezzi">Numero pezzi</label>
-        <input type="number" class="form-control" name="N_pezzi" placeholder="N_pezzi"
-          value="{{ request.form['N_pezzi'] }}" required>
-        <small id="npezziHelp" class="form-text text-muted"><b><i class="fa fa-exclamation-circle" aria-hidden="true"></i> ATTENZIONE:</b> quando aggiorni la disponibilità dei tamponi tieni d'occhio il contatore della disponibilità. Puoi aggiornare il numero dei pezzi in funzione di esso.</small>
+        <input type="number" class="form-control" name="N_pezzi" placeholder="N_pezzi" required>
+        <small id="npezziHelp" class="form-text text-muted"><b><i class="fa fa-exclamation-circle"
+              aria-hidden="true"></i> ATTENZIONE:</b> quando aggiorni la disponibilità dei tamponi tieni d'occhio il
+          contatore della disponibilità. Puoi aggiornare il numero dei pezzi in funzione di esso.</small>
       </div>
       <div class="form-group">
         <label for="Giorno">Giorno</label>
-        <input type="date" class="form-control" name="Giorno" placeholder="Giorno"
-          value="{{ request.form['Giorno'] }}" required>
-        <small id="dateHelp" class="form-text text-muted"><b><i class="fa fa-exclamation-circle" aria-hidden="true"></i> ATTENZIONE:</b> la disponibilità deve essere aggiornata ogni giorno</small>
+        <input type="date" class="form-control" name="Giorno" placeholder="Giorno" required>
+        <small id="dateHelp" class="form-text text-muted"><b><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            ATTENZIONE:</b> la disponibilità deve essere aggiornata ogni giorno</small>
       </div>
       <div class="form-group">
         <label for="OraInizio">Ora Inizio</label>
-        <input type="time" class="form-control" name="OraInizio" placeholder="Fascia oraria"
-          value="{{ request.form['OraInizio'] }}" required>
+        <input type="time" class="form-control" name="OraInizio" placeholder="Fascia oraria" required>
       </div>
       <div class="form-group">
         <label for="OraFine">Ora Fine</label>
-        <input type="time" class="form-control" name="OraFine" placeholder="Fascia oraria"
-          value="{{ request.form['OraFine'] }}" required>
+        <input type="time" class="form-control" name="OraFine" placeholder="Fascia oraria" required>
       </div>
       <div class="form-group">
         <label for="Prezzo">Prezzo €</label>
-        <input type="number" class="form-control" name="Prezzo" placeholder="Prezzo" value="{{ request.form['Prezzo'] }}"
-          required>
+        <input type="number" step="0.01" class="form-control" name="Prezzo" placeholder="Prezzo" required>
       </div>
       <div class="form-group text-center mt-3">
         <button type="submit" class="btn btn-primary">Inserisci tamponi</button>
@@ -148,7 +151,7 @@
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
             Lista tamponi disponibili in farmacia </span></b></h2>
 
-      <div class="d-flex justify-content-center mt-5">
+      <div class="d-flex justify-content-center mt-5 table-responsive">
         <table class="table">
           <thead>
             <tr>
@@ -178,96 +181,98 @@
           {% endfor %}
         </table>
       </div>
+    </center>
   </div>
+</body>
 
-  <!--Copyright-->
-  <!-- Footer -->
-  <footer class="text-lg text-lg-start bg-white text-muted">
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-    </section>
-    <!-- Section: Social media -->
+<!--Copyright-->
+<!-- Footer -->
+<footer class="text-lg text-lg-start bg-white text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+  </section>
+  <!-- Section: Social media -->
 
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              <i class="fas fa-gem me-3"></i>Self Test COVID-19
-            </h6>
-            <p>
-              INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              Prodotti
-            </h6>
-            <p>
-              <a href="#!" class="text-reset">Tampone rapido</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Tampone molecolare</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">
-              Accesso al sistema
-            </h6>
-            <p>
-              <a href="/loginFarmacia" class="text-reset">Farmacia</a>
-            </p>
-            <p>
-              <a href="/loginAdmin" class="text-reset">Admin</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-            <p><i class="fa fa-github"></i> Visita il nostro repository</p>
-          </div>
-          <!-- Grid column -->
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">
+            <i class="fas fa-gem me-3"></i>Self Test COVID-19
+          </h6>
+          <p>
+            INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
+          </p>
         </div>
-        <!-- Grid row -->
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">
+            Prodotti
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Tampone rapido</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Tampone molecolare</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">
+            Accesso al sistema
+          </h6>
+          <p>
+            <a href="/loginFarmacia" class="text-reset">Farmacia</a>
+          </p>
+          <p>
+            <a href="/loginAdmin" class="text-reset">Admin</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
+          <p><i class="fa fa-github"></i> Visita il nostro repository</p>
+        </div>
+        <!-- Grid column -->
       </div>
-    </section>
-    <!-- Section: Links  -->
-
-    <!-- Copyright -->
-    <hr>
-    <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
-      © 2022 Copyright:
-      <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
+      <!-- Grid row -->
     </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <hr>
+  <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
+    © 2022 Copyright:
+    <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+</nav>
 
 
-  <!--JavaScript-->
-  <!--jQuery, Popper.js, Bootstrap JS-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--JavaScript-->
+<!--jQuery, Popper.js, Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

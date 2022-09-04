@@ -25,7 +25,7 @@ def loginPaziente():
 def dashPaziente():
     if 'loggedin' in session:
         connection = connectDB()
-        esito = connection.execute('SELECT Prenotazioni.ID, NomeFarmacia, Citta, Indirizzo, Giorno, Ora, TipoTampone, EsitoTampone FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.Email=?',(session['id'],)).fetchall()
+        esito = connection.execute('SELECT Prenotazioni.ID, NomeFarmacia, Citta, Indirizzo, Giorno, Ora, TipoTampone, EsitoTampone FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.ID_Paziente = ?',(session['id'],)).fetchall()
         nomepaziente = connection.execute('SELECT Nome FROM Pazienti WHERE ID = ?',(session['id'],)).fetchone()
         connection.close()
     else:
@@ -66,7 +66,7 @@ def modificaPrenotazionePaziente():
     msg = ""
     if 'loggedin' in session: 
         connection = connectDB()
-        prenotazione = connection.execute('SELECT Prenotazioni.ID, NomeFarmacia, Citta, Indirizzo, Giorno, Ora, TipoTampone FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.Email= ?',(session['id'],)).fetchall()
+        prenotazione = connection.execute('SELECT Prenotazioni.ID, NomeFarmacia, Citta, Indirizzo, Giorno, Ora, TipoTampone FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID_Farmacia = Farmacie.ID AND Prenotazioni.ID_Paziente = ?',(session['id'],)).fetchall()
         connection.close()
     else:
         return redirect('/loginPaziente')

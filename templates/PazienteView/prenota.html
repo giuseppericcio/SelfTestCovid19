@@ -50,170 +50,185 @@
         <center>
             <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
                         Prenota tampone {{ tipo }} nella farmacia selezionata </span></b></h2>
-    </div>
 
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nome Farmacia</th>
-                    <th scope="col">Città</th>
-                    <th scope="col">Nome Tampone</th>
-                    <th scope="col">Giorno</th>
-                    <th scope="col">Ora Inizio</th>
-                    <th scope="col">Ora Fine</th>
-                    <th scope="col">Prezzo</th>
-                    <th scope="col">Azione</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for tampone in tamponi_disponibili %}
-                <tr>
-                    <td>{{ tampone.NomeFarmacia }}</td>
-                    <td>{{ tampone.Citta }}</td>
-                    <td>{{ tampone.NomeTampone }}</td>
-                    <td>{{ tampone.Giorno }}</td>
-                    <td>{{ tampone.OraInizio }}</td>
-                    <td>{{ tampone.OraFine }}</td>
-                    <td>{{ tampone.Prezzo }}</td>
-                    <td>
-                        <div class="form-group">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">
-                                Prenota tampone {{ tipo }}
-                            </button>
+            <div class="d-flex justify-content-center mt-5 table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome Farmacia</th>
+                            <th scope="col">Città</th>
+                            <th scope="col">Nome Tampone</th>
+                            <th scope="col">Giorno</th>
+                            <th scope="col">Ora Inizio</th>
+                            <th scope="col">Ora Fine</th>
+                            <th scope="col">Prezzo</th>
+                            <th scope="col">Azione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tampone in tamponi_disponibili %}
+                        <tr>
+                            <td>{{ tampone.NomeFarmacia }}</td>
+                            <td>{{ tampone.Citta }}</td>
+                            <td>{{ tampone.NomeTampone }}</td>
+                            <td>{{ tampone.Giorno }}</td>
+                            <td>{{ tampone.OraInizio }}</td>
+                            <td>{{ tampone.OraFine }}</td>
+                            <td>{{ tampone.Prezzo }}</td>
+                            <td>
+                                <div class="form-group">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#exampleModalLong">
+                                        Prenota tampone {{ tipo }}
+                                    </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-ticket" aria-hidden="true"></i> Accedi alla pagina di prenotazione </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h7>Se sei già <b>registrato</b> prenota il tampone con le credenziali usate in precedenza</h7>
-                                            <div class="form-group">
-                                                <center>
-                                                    <form action="/{{ tampone.ID_farmacia }}/{{ tampone.ID_tampone }}/{{ tampone.Giorno }}/prenotaRegistrato" method="POST">
-                                                        <button type="submit" class="btn btn-success">
-                                                            <i class="fa fa-user" aria-hidden="true"></i> Paziente Registrato </button>
-                                                    </form>
-                                                </center>
-                                            </div>
-                                            <h7>Se <b>non</b> sei già <b>registrato</b> puoi comunque prenotare il tampone, <i>ti ricordiamo però che dopo la prenotazione sarai registrato nel sistema</i></h7>
-                                            <div class="form-group">
-                                                <center>
-                                                    <form action="/{{ tampone.ID_farmacia }}/{{ tampone.ID_tampone }}/{{ tampone.Giorno }}/prenotaNuovo" method="POST">
-                                                        <button type="submit" class="btn btn-success">
-                                                            <i class="fa fa-user-o" aria-hidden="true"></i> Nuovo Paziente </button>
-                                                    </form>
-                                                </center>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle"><i
+                                                            class="fa fa-ticket" aria-hidden="true"></i> Accedi alla
+                                                        pagina di prenotazione </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h7>Se sei già <b>registrato</b> prenota il tampone con le
+                                                        credenziali usate in precedenza</h7>
+                                                    <div class="form-group">
+                                                        <center>
+                                                            <form
+                                                                action="/{{ tampone.ID_farmacia }}/{{ tampone.ID_tampone }}/{{ tampone.Giorno }}/prenotaRegistrato"
+                                                                method="POST">
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                                    Paziente Registrato </button>
+                                                            </form>
+                                                        </center>
+                                                    </div>
+                                                    <h7>Se <b>non</b> sei già <b>registrato</b> puoi comunque prenotare
+                                                        il tampone, <i>ti ricordiamo però che dopo la prenotazione sarai
+                                                            registrato nel sistema</i></h7>
+                                                    <div class="form-group">
+                                                        <center>
+                                                            <form
+                                                                action="/{{ tampone.ID_farmacia }}/{{ tampone.ID_tampone }}/{{ tampone.Giorno }}/prenotaNuovo"
+                                                                method="POST">
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                                                    Nuovo Paziente </button>
+                                                            </form>
+                                                        </center>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-
-    <!--Copyright-->
-    <!-- Footer -->
-    <footer class="text-lg text-lg-start bg-white text-muted">
-        <!-- Section: Social media -->
-        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        </section>
-        <!-- Section: Social media -->
-
-        <!-- Section: Links  -->
-        <section class="">
-            <div class="container text-center text-md-start mt-5">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <!-- Content -->
-                        <h6 class="text-uppercase fw-bold mb-4  text-primary">
-                            <i class="fas fa-gem me-3"></i>Self Test COVID-19
-                        </h6>
-                        <p>
-                            INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4  text-primary">
-                            Prodotti
-                        </h6>
-                        <p>
-                            <a href="#!" class="text-reset">Tampone rapido</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Tampone molecolare</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4  text-primary">
-                            Accesso al sistema
-                        </h6>
-                        <p>
-                            <a href="/loginFarmacia" class="text-reset">Farmacia</a>
-                        </p>
-                        <p>
-                            <a href="/loginAdmin" class="text-reset">Admin</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-                        <p><i class="fa fa-github"></i> Visita il nostro repository</p>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </section>
-        <!-- Section: Links  -->
+        </center>
+    </div>
+</body>
 
-        <!-- Copyright -->
-        <hr>
-        <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
-            © 2022 Copyright:
-            <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
+
+<!--Copyright-->
+<!-- Footer -->
+<footer class="text-lg text-lg-start bg-white text-muted">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4  text-primary">
+                        <i class="fas fa-gem me-3"></i>Self Test COVID-19
+                    </h6>
+                    <p>
+                        INFORMAZIONI UTILI DA SCRIVERE Scrivere qualcosa Scrivere qualcosa scrivere qualcosa
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4  text-primary">
+                        Prodotti
+                    </h6>
+                    <p>
+                        <a href="#!" class="text-reset">Tampone rapido</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Tampone molecolare</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4  text-primary">
+                        Accesso al sistema
+                    </h6>
+                    <p>
+                        <a href="/loginFarmacia" class="text-reset">Farmacia</a>
+                    </p>
+                    <p>
+                        <a href="/loginAdmin" class="text-reset">Admin</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
+                    <p><i class="fa fa-github"></i> Visita il nostro repository</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
         </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <hr>
+    <div class="text-center p-4  text-primary" style="background-color: rgba(255, 255, 255, 0.05);">
+        © 2022 Copyright:
+        <a class="text-reset fw-bold">Antonio Romano, Giuseppe Riccio</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+</nav>
 
 
-    <!--JavaScript-->
-    <!--jQuery, Popper.js, Bootstrap JS-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--JavaScript-->
+<!--jQuery, Popper.js, Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

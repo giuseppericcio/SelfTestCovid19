@@ -36,24 +36,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboardAdmin"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+                    <a class="nav-link" href="/dashboardAdmin"><i class="fa fa-tachometer" aria-hidden="true"></i>
+                        Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/creaFarmacia"><i class="fa fa-plus" aria-hidden="true"></i> Crea Farmacia</a>
+                    <a class="nav-link" href="/creaFarmacia"><i class="fa fa-plus" aria-hidden="true"></i> Crea
+                        Farmacia</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i>  Ricerca Farmacia<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i> Ricerca Farmacia<span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/modificaFarmacia"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica Farmacia</a>
+                    <a class="nav-link" href="/modificaFarmacia"><i class="fa fa-pencil-square-o"
+                            aria-hidden="true"></i> Modifica Farmacia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/rimozioneFarmacia"><i class="fa fa-trash" aria-hidden="true"></i> Rimuovi Farmacia</a>
+                    <a class="nav-link" href="/rimozioneFarmacia"><i class="fa fa-trash" aria-hidden="true"></i> Rimuovi
+                        Farmacia</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
+                    <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -61,33 +66,49 @@
 
     <div class="container">
         <center>
-          <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
-                Ricerca di Farmacia/e per Nome, Città e/o CAP </span></b></h2>
-      </div>
+            <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
+                        Ricerca di Farmacia/e per Nome, Città e/o CAP </span></b></h2>
+        </center>
 
-    <div class="container">
-        <form method="POST">
-            <div class="form-group">
-                <label for="Nome">Nome della Farmacia</label>
-                <input type="text" class="form-control" name="NomeFarmacia" placeholder="Nome della Farmacia"
-                    value="{{ request.form['NomeFarmacia'] }}">
-                <small id="findHelp" class="form-text text-muted">oppure</small>
+        <div class="d-flex justify-content-center mt-3">
+            {% if msg_error != "" %}
+            {% block content %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ msg_error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="form-group">
-                <label for="Citta">Città</label>
-                <input type="text" class="form-control" name="Citta" placeholder="Luogo dove è ubicata la Farmacia"
-                    value="{{ request.form['CAP'] }}">
-                <small id="findHelp" class="form-text text-muted">oppure</small>
-            </div>
-            <div class="form-group">
-                <label for="CAP">CAP</label>
-                <input type="text" class="form-control" name="CAP" placeholder="CAP" value="{{ request.form['CAP'] }}">
-            </div>
-            <div class="form-group text-center mt-3">
-                <button type="submit" class="btn btn-primary">Ricerca Farmacie</button>
-            </div>
-        </form>
+            {% endblock content %}
+            {% endif %}
+        </div>
+
+        <div class="container">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="Nome">Nome della Farmacia</label>
+                    <input type="text" class="form-control" name="NomeFarmacia" placeholder="Nome della Farmacia"
+                        value="{{ request.form['NomeFarmacia'] }}">
+                    <small id="findHelp" class="form-text text-muted">oppure</small>
+                </div>
+                <div class="form-group">
+                    <label for="Citta">Città</label>
+                    <input type="text" class="form-control" name="Citta" placeholder="Luogo dove è ubicata la Farmacia"
+                        value="{{ request.form['CAP'] }}">
+                    <small id="findHelp" class="form-text text-muted">oppure</small>
+                </div>
+                <div class="form-group">
+                    <label for="CAP">CAP</label>
+                    <input type="text" class="form-control" name="CAP" placeholder="CAP"
+                        value="{{ request.form['CAP'] }}">
+                </div>
+                <div class="form-group text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Ricerca Farmacie</button>
+                </div>
+            </form>
+        </div>
     </div>
+</body>
 
     <!--Copyright-->
     <!-- Footer -->

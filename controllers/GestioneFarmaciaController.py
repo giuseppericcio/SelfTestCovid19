@@ -27,16 +27,18 @@ def logout():
    return redirect('/')
 
 def dashAdmin():
+    msg_error = ""
     if 'loggedin' in session:
         connection = connectDB()
         farmacie = connection.execute('SELECT * FROM Farmacie').fetchall()
         connection.close()
     else:
         return redirect('/loginAdmin')
-    return render_template('/AdminView/dashboardAdmin.html', farmacie=farmacie)
+    return render_template('/AdminView/dashboardAdmin.html', farmacie=farmacie, msg_error = msg_error)
 
 def creaFarmacia():
     if 'loggedin' in session:
+        msg_error = ""
         if request.method == "POST":
             NomeFarmacia = request.form['NomeFarmacia']
             Citta = request.form['Citta']
@@ -45,15 +47,20 @@ def creaFarmacia():
             Email = request.form['Email']
             PWD = request.form['PWD']
             connection = connectDB()
-            connection.execute('INSERT INTO Farmacie (NomeFarmacia, Citta, CAP, Indirizzo, Email, PWD) VALUES (?,?,?,?,?,?)', (NomeFarmacia,Citta,CAP,Indirizzo,Email,PWD))
-            connection.commit()
+            try:
+                connection.execute('INSERT INTO Farmacie (NomeFarmacia, Citta, CAP, Indirizzo, Email, PWD) VALUES (?,?,?,?,?,?)', (NomeFarmacia,Citta,CAP,Indirizzo,Email,PWD))
+                connection.commit()
+            except:
+                msg_error = "La farmacia è gia presente nel sistema, si prega di verificare le informazioni e riprovare"
+            farmacie = connection.execute('SELECT * FROM Farmacie').fetchall()
             connection.close()
-            return redirect('/dashboardAdmin')
+            return render_template('/AdminView/dashboardAdmin.html', farmacie=farmacie, msg_error=msg_error)
     else:
         return redirect('/loginAdmin')
     return render_template('/AdminView/creaFarmacia.html')
 
 def ricercaFarmacia():
+    msg_error = ""
     if 'loggedin' in session:
         if request.method == "POST":
             NomeFarmacia = request.form['NomeFarmacia']
@@ -62,23 +69,28 @@ def ricercaFarmacia():
             connection = connectDB()
             farmacie = connection.execute('SELECT * FROM Farmacie WHERE (NomeFarmacia = ? OR Citta = ? OR CAP = ?)', (NomeFarmacia,Citta,CAP,)).fetchall()
             connection.close()
-            return render_template('/AdminView/listaFarmacie.html', farmacie=farmacie)
+            if farmacie:
+                return render_template('/AdminView/listaFarmacie.html', farmacie=farmacie)
+            else:
+                msg_error = "Non ci sono farmacie corrispondenti alle informazioni inserite. Riprovare"
     else:
         return redirect('/loginAdmin')
-    return render_template('/AdminView/ricercaFarmacia.html')
+    return render_template('/AdminView/ricercaFarmacia.html', msg_error=msg_error)
 
 def modificaFarmacia():
     msg = ""
+    msg_error = ""
     if 'loggedin' in session:
         connection = connectDB()
         farmacie = connection.execute('SELECT * FROM Farmacie').fetchall()
         connection.close()
     else:
         return redirect('/loginAdmin')
-    return render_template('/AdminView/modificaFarmacia.html', farmacie=farmacie, msg=msg)
+    return render_template('/AdminView/modificaFarmacia.html', farmacie=farmacie, msg=msg, msg_error=msg_error)
 
 def aggiornaFarmacia(ID):
     msg = ""
+    msg_error = ""
     if 'loggedin' in session:
         if request.method == "POST":
             NomeFarmacia = request.form['NomeFarmacia']
@@ -87,14 +99,18 @@ def aggiornaFarmacia(ID):
             Email = request.form['Email']
             PWD = request.form['PWD']
             connection = connectDB()
-            connection.execute('UPDATE Farmacie SET NomeFarmacia = ?, Citta = ?, CAP = ?, Email = ?, PWD = ? WHERE ID = ?', (NomeFarmacia,Citta,CAP,Email,PWD,ID))
-            connection.commit()
+            try:
+                connection.execute('UPDATE Farmacie SET NomeFarmacia = ?, Citta = ?, CAP = ?, Email = ?, PWD = ? WHERE ID = ?', (NomeFarmacia,Citta,CAP,Email,PWD,ID))
+                connection.commit()
+                msg = "Aggiornamento della farmacia " + NomeFarmacia + " è avvenuto con successo!"
+            except:
+                msg_error = "La farmacia è gia presente nel sistema, si prega di verificare le informazioni e riprovare"
+            
             farmacie = connection.execute('SELECT * FROM Farmacie').fetchall()
             connection.close()
-            msg = "Aggiornamento della farmacia " + NomeFarmacia + " è avvenuto con successo!"
     else:
         return redirect('/loginAdmin')
-    return render_template('/AdminView/modificaFarmacia.html', farmacie=farmacie, msg=msg)
+    return render_template('/AdminView/modificaFarmacia.html', farmacie=farmacie, msg=msg, msg_error=msg_error)
 
 def rimozioneFarmacia():
     msg = ""

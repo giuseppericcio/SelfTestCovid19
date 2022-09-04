@@ -42,13 +42,16 @@
           <a class="nav-link" href="/creaFarmacia"><i class="fa fa-plus" aria-hidden="true"></i> Crea Farmacia</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/ricercaFarmacia"><i class="fa fa-search" aria-hidden="true"></i> Ricerca Farmacia</a>
+          <a class="nav-link" href="/ricercaFarmacia"><i class="fa fa-search" aria-hidden="true"></i> Ricerca
+            Farmacia</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/modificaFarmacia"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica Farmacia</a>
+          <a class="nav-link" href="/modificaFarmacia"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifica
+            Farmacia</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa fa-trash" aria-hidden="true"></i>  Rimuovi Farmacia<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Rimuovi Farmacia<span
+              class="sr-only">(current)</span></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -63,55 +66,58 @@
     <center>
       <h2 class="text-center" style="margin: 25px;"><b><span style="color: #006eff;">
             Rimozione di una Farmacia </span></b></h2>
-  </div>
 
-  <div class="d-flex justify-content-center mt-3">
-    {% if msg != "" %}
-    {% block content %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      {{ msg }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endblock content %}
-    {% endif %}
-  </div>
+      <div class="d-flex justify-content-center mt-3">
+        {% if msg != "" %}
+        {% block content %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ msg }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endblock content %}
+        {% endif %}
+      </div>
 
-  <div class="container">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nome Farmacia</th>
-          <th scope="col">Città</th>
-          <th scope="col">CAP</th>
-          <th scope="col">Indirizzo</th>
-          <th scope="col">Email</th>
-          <th scope="col">PWD</th>
-          <th scope="col">Azione</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for farmacia in farmacie %}
-        <tr>
-          <th scope="row">{{ farmacia.ID }}</th>
-          <td>{{ farmacia.NomeFarmacia }}</td>
-          <td>{{ farmacia.Citta }}</td>
-          <td>{{ farmacia.CAP }}</td>
-          <td>{{ farmacia.Indirizzo }}</td>
-          <td>{{ farmacia.Email }}</td>
-          <td>{{ farmacia.PWD }}</td>
-          <td>
-            <form action="{{ farmacia.ID }}/rimuoviFarmacia" method="POST">
-              <button type="submit" class="btn btn-danger btn-sm my-2"><i class="fa fa-trash" aria-hidden="true"></i></button>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-      {% endfor %}
-    </table>
+      <div class="d-flex justify-content-center mt-5 table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome Farmacia</th>
+              <th scope="col">Città</th>
+              <th scope="col">CAP</th>
+              <th scope="col">Indirizzo</th>
+              <th scope="col">Email</th>
+              <th scope="col">PWD</th>
+              <th scope="col">Azione</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for farmacia in farmacie %}
+            <tr>
+              <th scope="row">{{ farmacia.ID }}</th>
+              <td>{{ farmacia.NomeFarmacia }}</td>
+              <td>{{ farmacia.Citta }}</td>
+              <td>{{ farmacia.CAP }}</td>
+              <td>{{ farmacia.Indirizzo }}</td>
+              <td>{{ farmacia.Email }}</td>
+              <td>{{ farmacia.PWD }}</td>
+              <td>
+                <form action="{{ farmacia.ID }}/rimuoviFarmacia" method="POST">
+                  <button type="submit" class="btn btn-danger btn-sm my-2"><i class="fa fa-trash"
+                      aria-hidden="true"></i></button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+    </center>
   </div>
+</body>
 
   <!--Copyright-->
   <!-- Footer -->
