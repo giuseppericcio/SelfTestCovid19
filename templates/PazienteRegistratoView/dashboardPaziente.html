@@ -120,9 +120,7 @@
                     <td>{{ esiti.TipoTampone }}</td>
                     <td>
                         {% if esiti.EsitoTampone == "Negativo" %}
-                        {% block content %}
                         <span class="badge bg-success text-white" style="font-size: 16px;">Negativo</span>
-                        {% endblock content %}
                         {% elif esiti.EsitoTampone == "Positivo" %}
                         <span class="badge bg-danger text-white" style="font-size: 16px;">Positivo </span>
                         {% elif esiti.EsitoTampone == "Da effettuare" %}
@@ -132,7 +130,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ url_for('.download_report', ID=esiti.ID) }}">Certificato disponibile</a>
+                    {% if (esiti.EsitoTampone == "Negativo") or (esiti.EsitoTampone == "Positivo") %}
+                        <a href="/download/report/pdf/{{ esiti.ID }}"> Certificato disponibile </a>
+                    {% else %}
+                        <a> Certificato non disponibile </a>
+                    {% endif %}
                     </td>
                 </tr>
             </tbody>

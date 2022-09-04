@@ -12,5 +12,5 @@ scikit-learn
 seaborn
 Werkzeug
 yellowbrick
-sqlite3
 qrcode
+fpdf
