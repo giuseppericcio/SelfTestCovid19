@@ -150,7 +150,7 @@ def modificaFarmacia():
     return render_template('/AdminView/modificaFarmacia.html')
 
 @app.route('/<int:ID>/aggiornaFarmacia')
-def aggiornaFarmacia(ID):
+def aggiornaFarmacia():
     return render_template('/AdminView/modificaFarmacia.html')
 
 @app.route('/rimozioneFarmacia')
@@ -158,7 +158,7 @@ def rimozioneFarmacia():
     return render_template('/AdminView/rimozioneFarmacia.html')
 
 @app.route('/<int:ID>/rimuoviFarmacia')
-def rimuoviFarmacia(ID):
+def rimuoviFarmacia():
     return render_template('/AdminView/rimozioneFarmacia.html')
 
 
