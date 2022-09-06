@@ -5,10 +5,14 @@
   <!-- Meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Test di verifica infezione al SARS-CoV-2 (COVID-19)">
-  <meta name="keywords"
-    content="Covid-19, MLOps, SARS-CoV-2 Probability Checker, Covid-19 Probability Checker, SARS-CoV-2 Probability Infection Checker, Covid-19 Probability Infection Checker">
-  <meta name="author" content="Antonio Romano">
+  <meta name="title" content="SelftTestCOVID19">
+  <meta name="description" content="Se presenti dei sintomi e vuoi capire se sei potenzialmente positivo, fai il nostro test. Se il risultato del test è maggiore del 50% ti proporremo in automatico di fare la prenotazione del tampone rapido/molecolare alla farmacia più vicina.">
+  <meta name="keywords" content="SelfTestCOVID19, COVID19, Test tamponi, tamponi rapido, tamponi molecolare, prenotazione tampone, prenotazione tampone rapido, prenotazione tampone molecolare, farmacia tamponi, farmacia tampone rapido, farmacia tampone molecolare
+  Covid-19, MLOps, SARS-CoV-2 Probability Checker, Covid-19 Probability Checker, SARS-CoV-2 Probability Infection Checker, Covid-19 Probability Infection Checker">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="revisit-after" content="1 days">
+  <meta name="author" content="Antonio Romano, Giuseppe Riccio">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
   <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
@@ -49,7 +53,7 @@
             farmacia</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/About"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il test</a>
+          <a class="nav-link" href="/about"><i class="fa fa-question" aria-hidden="true"></i> Come funziona il test</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -109,6 +113,12 @@
       <p>Indica <b>"Yes"</b> se presenti i seguenti sintomi, malattie o informazioni utili per il calcolo della
         possibile probabilità di infezione al virus SARS-CoV-2 (COVID-19). <br>
       </p>
+      <small id="npezziHelp" class="form-text text-muted"><b><i class="fa fa-exclamation-circle"
+        aria-hidden="true"></i> ATTENZIONE:</b> Il sistema di calcolo è un esempio di algoritmo di Machine Learning predittivo ed è stato realizzato per soli scopi dimostrativi pertanto il risultato potrebbe non essere attendibile. 
+        I dati inseriti non verranno memorizzati.</small>
+      <small id="npezziHelp" class="form-text text-muted my-3"><b><i class="fa fa-exclamation-circle"
+        aria-hidden="true"></i> RICORDA:</b> Se la probabilità valutata dall'algoritmo è maggiore del 50% ed è minore del 75% il sistema ti consiglierà di prenotare un tampone 
+        rapido in farmacia, altrimenti se la probabilità valutata dall'algoritmo è maggiore del 75% e minore del 100% il sistema ti consiglierà di prenotare un tampone molecolare.</small>
       <hr>
 
       <!--Form problema di respirazione-->
@@ -320,11 +330,17 @@
         </select>
       </div>
 
+      <small id="npezziHelp" class="form-text text-muted my-3"><b><i class="fa fa-exclamation-circle"
+        aria-hidden="true"></i> ATTENZIONE:</b> Il sistema di calcolo è un esempio di algoritmo di Machine Learning predittivo ed è stato realizzato per soli scopi dimostrativi pertanto il risultato potrebbe non essere attendibile. 
+        I dati inseriti non verranno memorizzati.</small>
+        <small id="npezziHelp" class="form-text text-muted my-3"><b><i class="fa fa-exclamation-circle"
+          aria-hidden="true"></i> RICORDA:</b> Se la probabilità valutata dall'algoritmo è maggiore del 50% ed è minore del 75% il sistema ti consiglierà di prenotare un tampone 
+          rapido in farmacia, altrimenti se la probabilità valutata dall'algoritmo è maggiore del 75% e minore del 100% il sistema ti consiglierà di prenotare un tampone molecolare.</small>
       <!--Button Submit-->
-      <p>&#9888; N.B Il sistema di calcolo è stato realizzato per soli scopi dimostrativi pertanto il risultato potrebbe
-        non essere attendibile. Inoltre i dati inseriti non verranno memorizzati.</p>
       <button class="btn btn-primary"><i class="fa fa-calculator" aria-hidden="true"></i> Calcola la probabilità di
         infezione da COVID-19 </button>
+
+      <hr>
       <p> </p>
     </form>
   </div>
@@ -392,8 +408,8 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4  text-primary">SOURCE CODE</h6>
-          <p>Scopri il codice sorgente del progetto SelfTestCOVID19 è <b>open source</b></p>
-          <p><i class="fa fa-github"></i> Visita il nostro <a href="link">repository</a></p>
+          <p>Scopri il codice sorgente del progetto SelfTestCOVID19, è <b>open source</b></p>
+          <p><i class="fa fa-github"></i> Visita il nostro <a href="https://github.com/giuseppericcio/SelfTestCovid19">repository</a></p>
         </div>
         <!-- Grid column -->
       </div>

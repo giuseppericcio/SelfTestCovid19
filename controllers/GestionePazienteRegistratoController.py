@@ -39,26 +39,45 @@ def download_report(ID):
     page_width = pdf.w - 2 * pdf.l_margin
 
     pdf.set_font('Arial','B',14.0) 
+    pdf.set_text_color(30,144,255)
     pdf.cell(page_width, 0.0, 'CERTIFICATO TAMPONE', align='C')
-    pdf.ln(10)
+    pdf.set_font('Arial','',6.0) 
+    pdf.ln(7) 
+    pdf.set_text_color(0,0,0)
+    pdf.cell(page_width, 0.0, ' IL SEGUENTE CERTIFICATO È UN FAC-SIMILE', align='C')
 
-    pdf.set_font('Arial', '', 12)
+    pdf.ln(20)
+
+    pdf.set_font('Arial', '', 10)
 
     connection = connectDB()
     infopaziente = connection.execute('SELECT Nome,Cognome,Giorno,TipoTampone,EsitoTampone,NomeFarmacia FROM Prenotazioni INNER JOIN Farmacie ON Prenotazioni.ID = ? AND Farmacie.ID = Prenotazioni.ID_Farmacia',(ID,)).fetchone()
     connection.close()
 
     #Non sono riuscito (a volo dopo la partita, non so cosa sto sbagliando) a far passare i dati indicati
-    pdf.cell(page_width, 0.0, 'GENTILE ' + str(infopaziente['Nome']) + ' ' + str(infopaziente['Cognome']) + ',', align='L')
+    pdf.cell(page_width, 0.0, 'Gentile ' + str(infopaziente['Nome']) + ' ' + str(infopaziente['Cognome']) + ',', align='L')
     pdf.ln(7)
-    pdf.cell(page_width, 0.0, 'Il tampone ' + str(infopaziente['TipoTampone']) + ' somministrato ', align='L') 
+    pdf.cell(page_width, 0.0, 'È stato/a sottoposto/a a test antigenico '+ str(infopaziente['TipoTampone'])+' somministrato per la rilevazione dell\' antigene ', align='L') 
     pdf.ln(7) 
-    pdf.cell(page_width, 0.0, 'nella Farmacia ' + str(infopaziente['NomeFarmacia']) + ' in data ' + str(infopaziente['Giorno']) + ' è risultato ' + str(infopaziente['EsitoTampone']), align='L')
+    pdf.cell(page_width, 0.0, 'SARS-CoV-2, così come previsto dal Decreto Legge n.99 del 30.02.2022, somministrato ', align='L') 
+    pdf.ln(7) 
+    pdf.cell(page_width, 0.0, 'nella Farmacia '+ str(infopaziente['NomeFarmacia']) + ' in data ' + str(infopaziente['Giorno']) + ' è risultato: ', align='L')
 
-    pdf.ln(10)
-    
-    pdf.set_font('Arial','',10.0) 
-    pdf.cell(page_width, 0.0, '- La si ringrazia per aver scelto la nostra farmacia -', align='C')
+    pdf.ln(20)
+    pdf.set_font('Arial', '', 20)
+    pdf.cell(page_width, 0.0, str(infopaziente['EsitoTampone']), align='C')
+    pdf.ln(70)
+    pdf.set_font('Arial', '', 10)
+    pdf.cell(page_width, 0.0, 'Firma del dichiarante', align='R')
+    pdf.ln(12)
+    pdf.set_font('Arial', '', 12)
+    pdf.cell(page_width, 0.0, '______________________', align='R')
+    pdf.ln(110)
+
+    pdf.set_font('Arial','',8.0) 
+    pdf.cell(page_width, 0.0, 'Ai sensi dell\' art. 9999 della legge 999/1999 e successive modificazioni, le informazioni indicate nella presente dichiarazione', align='C')
+    pdf.ln(3) 
+    pdf.cell(page_width, 0.0, 'verranno utilizzate unicamente per le finalità per le quasi sono state acquisite. IL SEGUENTE CERTIFICATO È UN FAC-SIMILE', align='C')
 
     return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=certificato_tampone_selftestCOVID19.pdf'})
 
