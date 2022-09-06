@@ -70,7 +70,7 @@ def modificaPrenotazionePaziente():
         connection.close()
     else:
         return redirect('/loginPaziente')
-    return render_template('/PazienteRegistratoView/modificaPrenotazionepaziente.html', prenotazioni=prenotazione, msg=msg)
+    return render_template('/PazienteRegistratoView/modificaPrenotazionePaziente.html', prenotazioni=prenotazione, msg=msg)
 
 def aggiornaPrenotazionePaziente(ID):
     msg = ""
@@ -86,7 +86,7 @@ def aggiornaPrenotazionePaziente(ID):
             msg = "Aggiornamento della prenotazione nr. " + str(ID) + " è avvenuta con successo!"
     else:
         return redirect('/loginPaziente')
-    return render_template('/PazienteRegistratoView/modificaPrenotazionepaziente.html', prenotazioni=prenotazione, msg=msg)
+    return render_template('/PazienteRegistratoView/modificaPrenotazionePaziente.html', prenotazioni=prenotazione, msg=msg)
 
 def rimozionePrenotazionePaziente():
     msg = ""

@@ -73,17 +73,18 @@
     </center>
   </div>
 
-  <div class="container my-4">
+  <div class="flex justify-content-center my-4">
     <div class="row">
-      <div class="col-sm">
+      <div class="col">
         {% for totaleRap in totaleRapido %}
-        <h5 style="text-align: right;">Disponibilità tampone rapido <span
-            class="badge badge-pill badge-success">{{totaleRap.TOT}}</span></h3>
+        <h5 style="text-align: right;"> Disponibilità tampone rapido
+          <span class="badge badge-pill badge-success"> {{totaleRap.TOT}} </span></h3>
           {% endfor %}
       </div>
-      <div class="col-sm">
+      <div class="col">
         {% for totaleMol in totaleMolecolare %}
-        <h5>Disponibilità tampone molecolare <span class="badge badge-pill badge-danger">{{totaleMol.TOT}}</span></h3>
+        <h5 style="text-align: left;"> Disponibilità tampone molecolare
+          <span class="badge badge-pill badge-danger"> {{totaleMol.TOT}} </span></h3>
           {% endfor %}
       </div>
     </div>
