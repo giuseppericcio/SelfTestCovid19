@@ -85,12 +85,12 @@
                                 <div class="form-group">
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#exampleModalLong">
+                                        data-target="#exampleModalLong{{ tampone.ID_tampone }}">
                                         Prenota tampone {{ tipo }}
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="exampleModalLong{{ tampone.ID_tampone }}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
