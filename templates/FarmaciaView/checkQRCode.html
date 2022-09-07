@@ -17,10 +17,10 @@
   <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
   <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Self Test COVID-19 | Check QR Code</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Self Test COVID-19 | Check QR Code</title>
 </head>
 
 <body>
@@ -189,14 +189,26 @@
             var nome = "{{ prenotazione.Nome }}"
             var cognome = "{{ prenotazione.Cognome }}"
             document.getElementById('result').innerHTML = '\
-                    <h7 class="alert alert-success" role="alert">\
-                    <i class="fa fa-check" aria-hidden="true"></i> Prenotazione <b>nr. ' + qrCodeMessage + '</b> \
-                    riconosciuta - Nome: ' + nome + ' Cognome: ' + cognome + ' </h7>';
+                        <div class="card-deck">\
+                            <div class="card border-success m-3" style="max-width: 18rem;">\
+                                <div class="card-body text-success">\
+                                    <span class="badge badge-pill badge-success mb-3">Risultato della scansione</span>\
+                                    <h5 class="card-title"> Prenotazione <b>nr. ' + qrCodeMessage + '</b> riconosciuta </h5>\
+                                    <p class="card-text"> Nome: ' + nome + ' </p>\
+                                    <hr><p class="card-text"> Cognome: ' + cognome + ' </p>\
+                                </div>\
+                            </div>\
+                        </div>';
         } else {
             document.getElementById('result').innerHTML = '\
-                    <h7 class="alert alert-danger" role="alert">\
-                    <i class="fa fa-check" aria-hidden="true"></i> Prenotazione <b>nr. ' + qrCodeMessage + '</b> \
-                    NON riconosciuta </h7>';
+                        <div class="card-deck">\
+                            <div class="card border-danger m-3" style="max-width: 18rem;">\
+                                <div class="card-body text-danger">\
+                                    <span class="badge badge-pill badge-danger mb-3">Risultato della scansione</span>\
+                                    <h5 class="card-title"> Prenotazione <b>nr. ' + qrCodeMessage + ' NON</b> riconosciuta </h5>\
+                                </div>\
+                            </div>\
+                        </div>';
         }
         "{% endfor %}"
     }
