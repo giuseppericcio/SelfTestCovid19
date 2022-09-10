@@ -15,7 +15,7 @@ Ad esempio, se il sistema predice che il paziente X abbia una **probabilità di 
 
 ## :bookmark_tabs: La Documentazione
 E' possibile consultare la completa documentazione al seguente link <a title="Link al documento" href="https://github.com/giuseppericcio/SelfTestCovid19/blob/main/Progetto%20SAD%20-%20Antonio%20Romano%20M63001315%20-%20Giuseppe%20Riccio%20M63001314.pdf">
-:link: </a>
+:link: documento </a>
 - Introduzione
 - Avvio della progettazione
 - Processo di sviluppo
