@@ -14,7 +14,8 @@ Ad esempio, se il sistema predice che il paziente X abbia una **probabilità di 
 *:checkered_flag: Il sistema cerca di diminuire il numero di persone che si recano nelle farmacie per effettuare i tamponi al fine di evitare disservizi nelle stesse e per risparmiare sul costo dei tamponi da parte dei pazienti. In che modo? Prevedendo la probabilità potenziale al COVID-19 e in base al valore ottenuto può effettuare o meno una prenotazione del tampone alla farmacia più vicina.*
 
 ## :bookmark_tabs: La Documentazione
-E' possibile consultare la completa documentazione al seguente link :link:
+E' possibile consultare la completa documentazione al seguente link <a title="Link al documento" href="https://github.com/giuseppericcio/SelfTestCovid19/blob/main/Progetto%20SAD%20-%20Antonio%20Romano%20M63001315%20-%20Giuseppe%20Riccio%20M63001314.pdf">
+:link: </a>
 - Introduzione
 - Avvio della progettazione
 - Processo di sviluppo
@@ -46,7 +47,7 @@ Il diagramma seguente mostra ad alto livello come gli attori esterni (il pazient
 Se l'**esito del test** è compreso tra il 50\% e il 75\% verrà indirizzato in maniera automatica al sistema di prenotazione di un tampone rapido alla farmacia più vicina. Se l'esito è maggiore del 75\% allora verrà indirizzato in maniera automatica al sistema di prenotazione di un tampone molecolare alla farmacia più vicina. Effettuando la prenotazione, il paziente si registra al sistema, se già non lo è, diventando così un *paziente registrato*. La *farmacia* aggiornerà la disponibilità dei tamponi rapidi/molecolari e aggiungerà l'esito del tampone effettuato al paziente. 
 L'*admin di sistema* aggiornerà la lista delle farmacie aderenti al sistema. Inoltre aggiornerà il modello di ML per migliorare l'accuratezza dei risultati.
 
-DA inserire l'immagie
+DA inserire l'immagine
 
 ## :pencil: Come funziona il test
 DA inserire l'immagine
