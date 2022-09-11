@@ -47,10 +47,14 @@ Il diagramma seguente mostra ad alto livello come gli attori esterni (il pazient
 Se l'**esito del test** è compreso tra il 50\% e il 75\% verrà indirizzato in maniera automatica al sistema di prenotazione di un tampone rapido alla farmacia più vicina. Se l'esito è maggiore del 75\% allora verrà indirizzato in maniera automatica al sistema di prenotazione di un tampone molecolare alla farmacia più vicina. Effettuando la prenotazione, il paziente si registra al sistema, se già non lo è, diventando così un *paziente registrato*. La *farmacia* aggiornerà la disponibilità dei tamponi rapidi/molecolari e aggiungerà l'esito del tampone effettuato al paziente. 
 L'*admin di sistema* aggiornerà la lista delle farmacie aderenti al sistema. Inoltre aggiornerà il modello di ML per migliorare l'accuratezza dei risultati.
 
-DA inserire l'immagine
+<div align="center">
+<center><img src="https://github.com/giuseppericcio/SelfTestCovid19/blob/main/Immagini%20e%20Diagrammi/Diagrammi%20UML/System%20Context%20Diagram%20SelfTestCOVID19.png?raw=true" width="788"/></center>
+</div>
 
 ## :pencil: Come funziona il test
-DA inserire l'immagine
+<div align="center">
+<center><img src="https://www.selftestcovid19.it/static/SchemeTestFunction.jpg" width="788"/></center>
+</div>
 
 ## :video_camera: Video Demo della Web Application
 Si mostrano tutte le funzionalità implementate nella web application, dallo svolgimento del test fino alla gestione delle farmacie aderenti al sistema.
@@ -74,4 +78,4 @@ Al seguente link si può provare la web application
 - Giuseppe Riccio
 
 # Progetto realizzato per soli scopi dimostrativi ed educativi
-La seguente trattazione è mirata alla realizzazione di un progetto software per l'esame di Software Architecture Design all'**Università degli Studi di Napoli Federico II** seguendo una documentazione adeguata.
+La seguente trattazione è mirata alla realizzazione di un progetto software per l'esame di Software Architecture Design (A.A 2021/2022) all'**Università degli Studi di Napoli Federico II**.
