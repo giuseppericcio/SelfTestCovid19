@@ -74,8 +74,8 @@ Al seguente link si può provare la web application
 :smiley: FARMACIA: *username* **donbosco@farmacia.it** *password* **prova1** (*puoi cambiare farmacia entrando dall'ADMIN*)
 
 # Gli Autori
-- Antonio Romano 
-- Giuseppe Riccio
+- <a title="Antonio Romano" href="https://github.com/LaErre9" target="_blank" > Antonio Romano </a>
+- <a title="Giuseppe Riccio" href="https://github.com/giuseppericcio" target="_blank" > Giuseppe Riccio </a>
 
 # Progetto realizzato per soli scopi dimostrativi ed educativi
 La seguente trattazione è mirata alla realizzazione di un progetto software per l'esame di Software Architecture Design (A.A 2021/2022) all'**Università degli Studi di Napoli Federico II**.
