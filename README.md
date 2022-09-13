@@ -27,7 +27,7 @@ E' possibile consultare la completa documentazione al seguente link <a title="Li
 - Uso del prodotto software
 
 ## :wrench: Tools utilizzati
-|                       **FRONT END**                       |                    |
+|                       **FRONT END**                       |  **TOOLS**                  |
 |:---------------------------------------------------------:|--------------------|
 | _FRAMEWORK_                                               | BOOTSTRAP          |
 | _LANGUAGE_                                                | HTML, CSS, JS      |
