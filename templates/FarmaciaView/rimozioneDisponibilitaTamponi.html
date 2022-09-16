@@ -112,7 +112,7 @@
                 <td>{{ tampone.OraFine }}</td>
                 <td>{{ tampone.Prezzo }}</td>
                 <td>
-                  <form action="{{ tampone.ID }}/rimuoviDisponibilitaTamponi" method="POST">
+                  <form action="/{{ tampone.ID }}/rimuoviDisponibilitaTamponi" method="POST">
                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"
                         aria-hidden="true"></i></button>
                   </form>

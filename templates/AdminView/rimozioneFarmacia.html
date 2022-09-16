@@ -109,7 +109,7 @@
               <td>{{ farmacia.Email }}</td>
               <td>{{ farmacia.PWD }}</td>
               <td>
-                <form action="{{ farmacia.ID }}/rimuoviFarmacia" method="POST">
+                <form action="/{{ farmacia.ID }}/rimuoviFarmacia" method="POST">
                   <button type="submit" class="btn btn-danger btn-sm my-2"><i class="fa fa-trash"
                       aria-hidden="true"></i></button>
                 </form>
