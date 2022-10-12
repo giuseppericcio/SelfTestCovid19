@@ -65,7 +65,7 @@ https://user-images.githubusercontent.com/64225083/188891848-4e4ad96a-c5f2-485f-
 
 ## :heavy_check_mark: La Web App è disponibile, basta un browser! 
 Al seguente link si può provare la web application 
-:link: https://www.selftestcovid19.it/
+:link: https://selftestcovid19.pythonanywhere.com
 
 **Credenziali di accesso**
 
