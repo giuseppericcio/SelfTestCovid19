@@ -53,7 +53,7 @@ L'*admin di sistema* aggiornerà la lista delle farmacie aderenti al sistema. In
 
 ## :pencil: Come funziona il test
 <div align="center">
-<center><img src="https://www.selftestcovid19.it/static/SchemeTestFunction.jpg" width="788"/></center>
+<center><img src="https://selftestcovid19.pythonanywhere.com/static/SchemeTestFunction.jpg" width="788"/></center>
 </div>
 
 ## :video_camera: Video Demo della Web Application
